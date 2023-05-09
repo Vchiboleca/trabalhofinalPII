@@ -4,8 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,15 +11,14 @@ import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.sql.*;
+import co.mz.hola.dal.ModuloConexao;
 
 /**
  * FXML Controller class
@@ -49,12 +46,20 @@ public class TelaDeLoginController implements Initializable {
     @FXML
     private JFXButton sairLogin;
     
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-           
+           conexao = ModuloConexao.conector();
+           //Teste conexao
+           //System.out.println(conexao);
     } 
+    
+    
     @FXML
     private void sairLogin(ActionEvent event){
         System.exit(0);

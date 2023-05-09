@@ -12,15 +12,15 @@ public class ModuloConexao {
     
     public static Connection conector(){
         
-        java.sql.Connection conexao = null;
+        Connection conexao = null;
         //A linha abaixo chama o driver mysql para java
         
-        String driver = "com.mysql.jdbc.Driver";
+        String driver = "com.mysql.cj.jdbc.Driver";
         //Informacoes do banco de dados
         
-        String url = "jdbc:mysql://localhost:3306/dbinfox";
+        String url = "jdbc:mysql://containers-us-west-160.railway.app:6812/railway";
         String user = "root";
-        String password = "";
+        String password = "MQ4BFiuZw639ihS7Np0g";
         
         //Estabelece a conexao com o banco de dados
         
