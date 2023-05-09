@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="co.mz.hola.telas.TelaDeLoginController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.TelaDeLoginController">
    <children>
       <Pane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #6C5DD4;">
          <children>
@@ -32,12 +31,12 @@
             <Image url="@../imagens/userlogin.png" />
          </image>
       </ImageView>
-      <JFXTextField focusColor="#6c5dd4" labelFloat="true" layoutX="601.0" layoutY="274.0" prefHeight="38.0" prefWidth="310.0" promptText="Usuário" unFocusColor="#6c5dd4">
+      <JFXTextField fx:id="tfNomeUsuario" focusColor="#6c5dd4" labelFloat="true" layoutX="601.0" layoutY="274.0" prefHeight="38.0" prefWidth="310.0" promptText="Usuário" unFocusColor="#6c5dd4">
          <font>
             <Font size="16.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField focusColor="#6c5dd4" layoutX="601.0" layoutY="377.0" prefHeight="25.0" prefWidth="310.0" promptText="Senha" unFocusColor="#6c5dd4">
+      <JFXPasswordField fx:id="tfSenhaUsuario" focusColor="#6c5dd4" layoutX="601.0" layoutY="377.0" prefHeight="25.0" prefWidth="310.0" promptText="Senha" unFocusColor="#6c5dd4">
          <font>
             <Font size="16.0" />
          </font>
@@ -57,5 +56,6 @@
             <Font size="17.0" />
          </font>
       </JFXButton>
+      <Label fx:id="lblStatus" layoutX="842.0" layoutY="538.0" prefHeight="17.0" prefWidth="84.0" text="Status" />
    </children>
 </AnchorPane>
