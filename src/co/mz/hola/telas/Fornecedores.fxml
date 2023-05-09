@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx">
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx" fx:controller="co.mz.hola.telas.FornecedoresController">
    <children>
       <Label layoutX="639.0" layoutY="425.0" prefHeight="50.0" prefWidth="222.0" text="Fornecedores">
          <font>

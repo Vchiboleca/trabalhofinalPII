@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="co.mz.hola.telas.PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="co.mz.hola.telas.TelaDeLoginController">
    <children>
       <Pane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #6C5DD4;">
          <children>
@@ -42,7 +42,7 @@
             <Font size="16.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton buttonType="RAISED" layoutX="809.0" layoutY="461.0" prefHeight="38.0" prefWidth="102.0" style="-fx-background-color: #6C5DD4;" text="Entrar" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="809.0" layoutY="461.0" onMouseClicked="#entrar" prefHeight="38.0" prefWidth="102.0" style="-fx-background-color: #6C5DD4;" text="Entrar" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
@@ -52,7 +52,7 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <JFXButton layoutX="962.0" layoutY="3.0" prefHeight="38.0" prefWidth="35.0" text="X">
+      <JFXButton layoutX="962.0" layoutY="3.0" onAction="#sairLogin" prefHeight="38.0" prefWidth="35.0" text="X">
          <font>
             <Font size="17.0" />
          </font>
