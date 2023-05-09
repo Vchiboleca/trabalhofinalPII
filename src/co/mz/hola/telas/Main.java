@@ -17,6 +17,8 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
+        
+        
         Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
         
         stage.initStyle(StageStyle.UNDECORATED);
@@ -36,6 +38,7 @@ public class Main extends Application {
         stage.setScene(new Scene(root));
         stage.setTitle("Hola v1.0");
         stage.show();
+        
     }
 
     /**

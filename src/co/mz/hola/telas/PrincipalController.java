@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 
 /**
  * FXML Controller class
@@ -23,22 +24,41 @@ import java.util.logging.Logger;
  * @author Virgilio Chiboleca
  */
 public class PrincipalController implements Initializable {
-
     @FXML
-    private ImageView sair, menu;
+    private ImageView sair;
     
     @FXML
-    private AnchorPane pane1, pane2;
-
+    private ImageView menu;
+    @FXML
+    private ImageView btnCadastro2;
+    @FXML
+    private AnchorPane pane1;
+    @FXML
+    private AnchorPane pane2;
     @FXML
     private StackPane contentor;
-    
+    @FXML
+    private ImageView btnCadastro1;
+    @FXML
+    private JFXButton btnDashboard;
+
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         sair.setOnMouseClicked(event -> {
             System.exit(0);
+        });
+        
+        btnCadastro2.setOnMouseClicked(event -> {
+            try {
+            Parent painel = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
+            contentor.getChildren().removeAll();
+            contentor.getChildren().setAll(painel);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         });
         
         pane1.setVisible(false);
@@ -94,40 +114,47 @@ public class PrincipalController implements Initializable {
     }    
 
     
+    @FXML
         public void dashboard(javafx.event.ActionEvent actionEvent) throws IOException{
             Parent painel = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             contentor.getChildren().removeAll();
             contentor.getChildren().setAll(painel);
         }
         
+    @FXML
         public void facturas(javafx.event.ActionEvent actionEvent) throws IOException{
             Parent painel = FXMLLoader.load(getClass().getResource("Facturas.fxml"));
             contentor.getChildren().removeAll();
             contentor.getChildren().setAll(painel);
         }
         
+    @FXML
         public void clientes(javafx.event.ActionEvent actionEvent) throws IOException{
             Parent painel = FXMLLoader.load(getClass().getResource("Clientes.fxml"));
             contentor.getChildren().removeAll();
             contentor.getChildren().setAll(painel);
         }
         
+    @FXML
         public void fornecedores(javafx.event.ActionEvent actionEvent) throws IOException{
             Parent painel = FXMLLoader.load(getClass().getResource("Fornecedores.fxml"));
             contentor.getChildren().removeAll();
             contentor.getChildren().setAll(painel);
         } 
         
+    @FXML
         public void cadastro(javafx.event.ActionEvent actionEvent) throws IOException{
             Parent painel = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
             contentor.getChildren().removeAll();
             contentor.getChildren().setAll(painel);
         }
         
+    @FXML
         public void relatorio(javafx.event.ActionEvent actionEvent) throws IOException{
             Parent painel = FXMLLoader.load(getClass().getResource("Relatorio.fxml"));
             contentor.getChildren().removeAll();
             contentor.getChildren().setAll(painel);
-        } 
-       
+        }
+
+           
 }

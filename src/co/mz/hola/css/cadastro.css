@@ -1,0 +1,45 @@
+/* 
+    Created on : May 9, 2023, 3:20:21 AM
+    Author     : Virgilio Chiboleca
+*/
+
+/*Estilo Ababas de Cadastro */
+
+.tab {
+    
+    -fx-pref-width: 160;
+    -fx-pref-height: 60;
+    
+}
+
+/*Define a cor do fundo padrao*/
+.tab-header-background {
+    /* -fx-background-color: #AC94C9; */
+    -fx-background-color:  #F3F3F3;
+}
+
+/*Define a cor da linha de baixo*/
+.jfx-tab-pane .tab-selected-line {
+     /*-fx-border-color: #6C5DD4; */
+     -fx-border-color: #01BEDC;
+}
+/*Define a cor padrao das letras*/
+.jfx-tab-pane .tab-header-area .tab .tab-label {
+    -fx-text-fill: #353741;
+}
+
+/*Define a cor das letras quando o mouse passa por cima*/
+.jfx-tab-pane .tab-header-area .tab .tab-label:hover {
+    -fx-text-fill: #6C5DD4;
+}
+/*Define a cor do fundo da tab que estiver selecionada*/
+.jfx-tab-pane .tab-header-area .tab:selected .tab-container {
+    -fx-background-color: #6C5DD4;
+}
+
+/*Define a cor das letras quando a tab estiver selecionada*/
+.jfx-tab-pane .tab-header-area .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+
