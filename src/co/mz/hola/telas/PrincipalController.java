@@ -16,7 +16,6 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 
 /**
  * FXML Controller class
@@ -24,6 +23,8 @@ import javafx.event.ActionEvent;
  * @author Virgilio Chiboleca
  */
 public class PrincipalController implements Initializable {
+
+    
     @FXML
     private ImageView sair;
     
@@ -41,11 +42,18 @@ public class PrincipalController implements Initializable {
     private ImageView btnCadastro1;
     @FXML
     private JFXButton btnDashboard;
+    @FXML
+    private ImageView imgMPRelatorio;
+    @FXML
+    private JFXButton btnMPCadastro;
+    @FXML
+    private JFXButton btnMPRelatorio;
 
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         
         sair.setOnMouseClicked(event -> {
             System.exit(0);
@@ -112,6 +120,38 @@ public class PrincipalController implements Initializable {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
+
+    public ImageView getBtnCadastro2() {
+        return btnCadastro2;
+    }
+
+    public void setBtnCadastro2(ImageView btnCadastro2) {
+        this.btnCadastro2 = btnCadastro2;
+    }
+
+    public ImageView getImgMPRelatorio() {
+        return imgMPRelatorio;
+    }
+
+    public void setImgMPRelatorio(ImageView imgMPRelatorio) {
+        this.imgMPRelatorio = imgMPRelatorio;
+    }
+
+    public JFXButton getBtnMPCadastro() {
+        return btnMPCadastro;
+    }
+
+    public void setBtnMPCadastro(JFXButton btnMPCadastro) {
+        this.btnMPCadastro = btnMPCadastro;
+    }
+
+    public JFXButton getBtnMPRelatorio() {
+        return btnMPRelatorio;
+    }
+
+    public void setBtnMPRelatorio(JFXButton btnMPRelatorio) {
+        this.btnMPRelatorio = btnMPRelatorio;
+    }
 
     
     @FXML

@@ -1,6 +1,5 @@
 package co.mz.hola.telas;
 
-import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,9 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -76,34 +72,46 @@ public class TelaDeLoginController implements Initializable {
 
             //Verifica se existe o usuario e a senha correspondente
             if (rs.next()) {
-                Stage stage = new Stage();
+                //Obtencao do conteudo do campo perfil
+                String perfil = rs.getString(8);
+                //System.out.println(perfil);
 
-                Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+                    Stage stage = new Stage();
 
-                stage.initStyle(StageStyle.UNDECORATED);
+                    Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
 
-                final double[] x = {0};
-                final double[] y = {0};
+                    stage.initStyle(StageStyle.UNDECORATED);
 
-                root.setOnMousePressed(event -> {
-                    x[0] = event.getSceneX();
-                    y[0] = event.getSceneY();
-                });
+                    final double[] x = {0};
+                    final double[] y = {0};
 
-                root.setOnMouseDragged(event -> {
-                    stage.setX(event.getScreenX() - x[0]);
-                    stage.setY(event.getScreenY() - y[0]);
-                });
+                    root.setOnMousePressed(event -> {
+                        x[0] = event.getSceneX();
+                        y[0] = event.getSceneY();
+                    });
 
-                stage.setScene(new Scene(root));
-                stage.setTitle("Hola v1.0");
-                stage.show();
-                ((Node) event1.getSource()).getScene().getWindow().hide();
+                    root.setOnMouseDragged(event -> {
+                        stage.setX(event.getScreenX() - x[0]);
+                        stage.setY(event.getScreenY() - y[0]);
+                    });
+
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Hola v1.0");
+                    stage.show();
+                    
+                    
+                    //Habilita o botao cadastro e relatorios para os gestores
+                    //PrincipalController principal = new PrincipalController();
+                    
+                    //principal.getBtnMPCadastro().setDisable(false);
+                    
+                    ((Node) event1.getSource()).getScene().getWindow().hide();
+                    
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalido");
             }
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, e);
         }
 
