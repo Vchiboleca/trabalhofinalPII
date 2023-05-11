@@ -20,12 +20,12 @@ public class ModuloConexao {
         
         String url = "jdbc:mysql://containers-us-west-160.railway.app:6812/railway";
         String user = "root";
-        String password = "MQ4BFiuZw639ihS7Np0g";
+        String password = "MQ4BFiuZw639ihS7Np0g"; 
         
         /*Modulo de Conexao Local - Mais rapido para testes
         String url = "jdbc:mysql://localhost:3306/dbhola";
         String user = "root";
-        String password = "5bilhoesdeUSD9647+*"; */
+        String password = ""; */
         
         //Estabelece a conexao com o banco de dados
         

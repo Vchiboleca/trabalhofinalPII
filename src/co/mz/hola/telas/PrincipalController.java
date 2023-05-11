@@ -152,6 +152,10 @@ public class PrincipalController implements Initializable {
     public void setBtnMPRelatorio(JFXButton btnMPRelatorio) {
         this.btnMPRelatorio = btnMPRelatorio;
     }
+    
+    public void activacaoBotao (){
+        btnMPCadastro.setDisable(false);
+    }
 
     
     @FXML

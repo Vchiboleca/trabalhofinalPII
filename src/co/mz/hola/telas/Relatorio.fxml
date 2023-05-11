@@ -4,8 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx" fx:controller="co.mz.hola.telas.RelatorioController">
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" styleClass="container" stylesheets="@../css/cadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.RelatorioController">
    <children>
       <Label layoutX="655.0" layoutY="411.0" prefHeight="78.0" prefWidth="191.0" text="Relatorio">
          <font>

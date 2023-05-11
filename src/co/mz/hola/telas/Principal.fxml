@@ -49,7 +49,7 @@
                         <Image url="@../imagens/fornecedores-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="btnCadastro1" disable="true" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnCadastro1" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/cadastro-roxo.png" />
                      </image>
@@ -88,7 +88,7 @@
                         <Image url="@../imagens/fornecedores-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="btnCadastro2" disable="true" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnCadastro2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/cadastro-roxo.png" />
                      </image>
@@ -126,12 +126,12 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnMPCadastro" alignment="BASELINE_LEFT" disable="true" onAction="#cadastro" prefHeight="39.0" prefWidth="200.0" text="Cadastro" textFill="WHITE">
+                  <JFXButton fx:id="btnMPCadastro" alignment="BASELINE_LEFT" onAction="#cadastro" prefHeight="39.0" prefWidth="200.0" text="Cadastro" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnMPRelatorio" alignment="BASELINE_LEFT" disable="true" onAction="#relatorio" prefHeight="39.0" prefWidth="200.0" text="Relatorio" textFill="WHITE">
+                  <JFXButton fx:id="btnMPRelatorio" alignment="BASELINE_LEFT" onAction="#relatorio" prefHeight="39.0" prefWidth="200.0" text="Relatorio" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

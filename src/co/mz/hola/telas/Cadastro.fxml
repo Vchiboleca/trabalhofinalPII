@@ -7,95 +7,90 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" style="-fx-background-color: #F4F3F9;" stylesheets="@../css/cadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.CadastroController">
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" styleClass="container" stylesheets="@../css/cadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.CadastroController">
    <children>
       <JFXTabPane layoutX="354.0" layoutY="207.0" prefHeight="634.0" prefWidth="1075.0" AnchorPane.topAnchor="180.0">
          <tabs>
             <Tab text="Usuários">
                <content>
-                  <Pane prefHeight="585.0" prefWidth="1075.0" style="-fx-background-color: white;">
+                  <Pane prefHeight="607.0" prefWidth="1075.0" style="-fx-background-color: white;">
                      <children>
-                        <JFXTextField focusColor="#6c5dd4" layoutX="202.0" layoutY="129.0" prefHeight="25.0" prefWidth="300.0" promptText="Primeiro Nome">
+                        <JFXTextField fx:id="cadNomeUsuario" focusColor="#6c5dd4" layoutX="202.0" layoutY="148.0" prefHeight="25.0" prefWidth="300.0" promptText="Primeiro Nome">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField focusColor="#6c5dd4" layoutX="202.0" layoutY="211.0" prefHeight="25.0" prefWidth="300.0" promptText="Contacto">
+                        <JFXTextField fx:id="tfContacto" focusColor="#6c5dd4" layoutX="202.0" layoutY="230.0" prefHeight="25.0" prefWidth="300.0" promptText="Contacto">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField focusColor="#6c5dd4" layoutX="202.0" layoutY="296.0" prefHeight="25.0" prefWidth="300.0" promptText="Utilizador">
+                        <JFXTextField fx:id="tfUtilizador" focusColor="#6c5dd4" layoutX="202.0" layoutY="315.0" prefHeight="25.0" prefWidth="300.0" promptText="Utilizador">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField focusColor="#6c5dd4" layoutX="629.0" layoutY="131.0" prefHeight="25.0" prefWidth="300.0" promptText="Apelido">
+                        <JFXTextField fx:id="tfApelido" focusColor="#6c5dd4" layoutX="629.0" layoutY="149.0" prefHeight="25.0" prefWidth="300.0" promptText="Apelido">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField focusColor="#6c5dd4" layoutX="629.0" layoutY="213.0" prefHeight="25.0" prefWidth="300.0" promptText="Email">
+                        <JFXTextField fx:id="tfEmail" focusColor="#6c5dd4" layoutX="629.0" layoutY="232.0" prefHeight="25.0" prefWidth="300.0" promptText="Email">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField focusColor="#6c5dd4" layoutX="629.0" layoutY="381.0" prefHeight="25.0" prefWidth="300.0" promptText="Senha">
+                        <JFXTextField fx:id="tfSenha" focusColor="#6c5dd4" layoutX="629.0" layoutY="395.0" prefHeight="25.0" prefWidth="300.0" promptText="Senha">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <Label layoutX="202.0" layoutY="50.0" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: #64DD99;" text="  Dados Pessoais" textFill="#637484">
+                        <Label layoutX="202.0" layoutY="20.0" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: #64DD99;" text="  Dados Pessoais" textFill="#637484">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <JFXComboBox focusColor="#6c5dd4" layoutX="629.0" layoutY="321.0" prefHeight="25.0" prefWidth="306.0" promptText="Perfil" />
-                        <JFXComboBox focusColor="#6c5dd4" layoutX="202.0" layoutY="393.0" prefHeight="25.0" prefWidth="302.0" promptText="Empresa" />
+                        <JFXComboBox fx:id="cbPerfil" focusColor="#6c5dd4" layoutX="629.0" layoutY="321.0" prefHeight="25.0" prefWidth="306.0" promptText="Perfil" />
+                        <JFXComboBox fx:id="cbEmpresa" focusColor="#6c5dd4" layoutX="202.0" layoutY="405.0" prefHeight="25.0" prefWidth="302.0" promptText="Empresa" />
                         <HBox layoutX="479.0" layoutY="493.0" prefHeight="47.0" prefWidth="457.0" spacing="10.0">
                            <children>
-                              <JFXButton buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01B552;" text="Adicionar" textFill="WHITE">
+                              <JFXButton fx:id="btnAdicionar" buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01B552;" text="Adicionar" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #FBAC47;" text="Consultar" textFill="WHITE">
+                              <JFXButton fx:id="btnConsultar" buttonType="RAISED" onMouseClicked="#consultar" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #FBAC47;" text="Consultar" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01BEDC;" text="Alterar" textFill="WHITE">
+                              <JFXButton fx:id="btnAlterar" buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01BEDC;" text="Alterar" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #F4504E;" text="Remover" textFill="WHITE">
+                              <JFXButton fx:id="btnRemover" buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #F4504E;" text="Remover" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </JFXButton>
                            </children>
                         </HBox>
-                        <Separator layoutX="200.0" layoutY="93.0" prefHeight="3.0" prefWidth="735.0" />
+                        <Separator layoutX="200.0" layoutY="62.0" prefHeight="3.0" prefWidth="735.0" />
+                        <Label layoutX="209.0" layoutY="93.0" text="Código para Consulta" />
+                        <TextField fx:id="idUser" layoutX="358.0" layoutY="90.0" prefHeight="26.0" prefWidth="142.0" />
                      </children></Pane>
                </content>
             </Tab>
             <Tab text="Empresas">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-                     <children>
-                        <Label layoutX="398.0" layoutY="208.0" text="Cadastro de Empresas Aqui">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
                </content></Tab>
          </tabs>
       </JFXTabPane>

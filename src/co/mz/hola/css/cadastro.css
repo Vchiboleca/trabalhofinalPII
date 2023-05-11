@@ -42,4 +42,8 @@
     -fx-text-fill: white;
 }
 
+.container {
+   -fx-background-color: linear-gradient(to top right, #fffffe, #7b83eb);
+}
+
 

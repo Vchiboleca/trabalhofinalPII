@@ -75,13 +75,17 @@ public class TelaDeLoginController implements Initializable {
                 //Obtencao do conteudo do campo perfil
                 String perfil = rs.getString(8);
                 //System.out.println(perfil);
-
+                if (perfil.equals("Gestor")) {
+                    
+                    
                     Stage stage = new Stage();
-
+                    
                     Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
 
                     stage.initStyle(StageStyle.UNDECORATED);
-
+                    
+                    
+                    
                     final double[] x = {0};
                     final double[] y = {0};
 
@@ -97,21 +101,20 @@ public class TelaDeLoginController implements Initializable {
 
                     stage.setScene(new Scene(root));
                     stage.setTitle("Hola v1.0");
+
+                   
+
+
                     stage.show();
-                    
-                    
-                    //Habilita o botao cadastro e relatorios para os gestores
-                    //PrincipalController principal = new PrincipalController();
-                    
-                    //principal.getBtnMPCadastro().setDisable(false);
-                    
+
                     ((Node) event1.getSource()).getScene().getWindow().hide();
-                    
+                     
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalido");
             }
         } catch (Exception e) {
-
+            
             JOptionPane.showMessageDialog(null, e);
         }
 
