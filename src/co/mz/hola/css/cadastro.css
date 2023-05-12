@@ -46,4 +46,15 @@
    -fx-background-color: linear-gradient(to top right, #fffffe, #7b83eb);
 }
 
+.bold-label {
+  -fx-font-weight: bold;
+}
+.custom-font-size {
+  -fx-font-size: 14px;
+}
+
+.custom-color {
+  -fx-text-fill: #444654;
+}
+
 

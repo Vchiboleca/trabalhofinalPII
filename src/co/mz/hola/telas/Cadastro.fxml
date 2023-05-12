@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
@@ -11,6 +12,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" styleClass="container" stylesheets="@../css/cadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.CadastroController">
@@ -19,34 +22,34 @@
          <tabs>
             <Tab text="Usuários">
                <content>
-                  <Pane prefHeight="607.0" prefWidth="1075.0" style="-fx-background-color: white;">
+                  <Pane prefHeight="608.0" prefWidth="1075.0" style="-fx-background-color: white;">
                      <children>
-                        <JFXTextField fx:id="cadNomeUsuario" focusColor="#6c5dd4" layoutX="202.0" layoutY="148.0" prefHeight="25.0" prefWidth="300.0" promptText="Primeiro Nome">
+                        <JFXTextField fx:id="cadNomeUsuario" focusColor="#6c5dd4" labelFloat="true" layoutX="202.0" layoutY="148.0" prefHeight="25.0" prefWidth="300.0" promptText="Primeiro Nome">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="tfContacto" focusColor="#6c5dd4" layoutX="202.0" layoutY="230.0" prefHeight="25.0" prefWidth="300.0" promptText="Contacto">
+                        <JFXTextField fx:id="tfContacto" focusColor="#6c5dd4" labelFloat="true" layoutX="202.0" layoutY="230.0" prefHeight="25.0" prefWidth="300.0" promptText="Contacto">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="tfUtilizador" focusColor="#6c5dd4" layoutX="202.0" layoutY="315.0" prefHeight="25.0" prefWidth="300.0" promptText="Utilizador">
+                        <JFXTextField fx:id="tfUtilizador" focusColor="#6c5dd4" labelFloat="true" layoutX="202.0" layoutY="315.0" prefHeight="25.0" prefWidth="300.0" promptText="Utilizador">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="tfApelido" focusColor="#6c5dd4" layoutX="629.0" layoutY="149.0" prefHeight="25.0" prefWidth="300.0" promptText="Apelido">
+                        <JFXTextField fx:id="tfApelido" focusColor="#6c5dd4" labelFloat="true" layoutX="629.0" layoutY="149.0" prefHeight="25.0" prefWidth="300.0" promptText="Apelido">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="tfEmail" focusColor="#6c5dd4" layoutX="629.0" layoutY="232.0" prefHeight="25.0" prefWidth="300.0" promptText="Email">
+                        <JFXTextField fx:id="tfEmail" focusColor="#6c5dd4" labelFloat="true" layoutX="629.0" layoutY="232.0" prefHeight="25.0" prefWidth="300.0" promptText="Email">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="tfSenha" focusColor="#6c5dd4" layoutX="629.0" layoutY="395.0" prefHeight="25.0" prefWidth="300.0" promptText="Senha">
+                        <JFXTextField fx:id="tfSenha" focusColor="#6c5dd4" labelFloat="true" layoutX="629.0" layoutY="395.0" prefHeight="25.0" prefWidth="300.0" promptText="Senha">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -56,11 +59,11 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <JFXComboBox fx:id="cbPerfil" focusColor="#6c5dd4" layoutX="629.0" layoutY="321.0" prefHeight="25.0" prefWidth="306.0" promptText="Perfil" />
-                        <JFXComboBox fx:id="cbEmpresa" focusColor="#6c5dd4" layoutX="202.0" layoutY="405.0" prefHeight="25.0" prefWidth="302.0" promptText="Empresa" />
+                        <JFXComboBox fx:id="cbPerfil" focusColor="#6c5dd4" labelFloat="true" layoutX="629.0" layoutY="321.0" prefHeight="25.0" prefWidth="306.0" promptText="Perfil" />
+                        <JFXComboBox fx:id="cbEmpresa" focusColor="#6c5dd4" labelFloat="true" layoutX="202.0" layoutY="405.0" prefHeight="25.0" prefWidth="302.0" promptText="Empresa" />
                         <HBox layoutX="479.0" layoutY="493.0" prefHeight="47.0" prefWidth="457.0" spacing="10.0">
                            <children>
-                              <JFXButton fx:id="btnAdicionar" buttonType="RAISED" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01B552;" text="Adicionar" textFill="WHITE">
+                              <JFXButton fx:id="btnAdicionar" buttonType="RAISED" onMouseClicked="#adicionar" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01B552;" text="Adicionar" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -90,7 +93,98 @@
             </Tab>
             <Tab text="Empresas">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f96ff00" height="495.0" layoutX="28.0" layoutY="51.0" stroke="#d3cbcb" strokeType="INSIDE" width="520.0" />
+                        <VBox layoutX="60.0" layoutY="75.0" prefHeight="430.0" prefWidth="150.0" spacing="8.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Designação Social">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="NUIT">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Endereço Completo">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Contacto Telefónico">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Email">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Responsável">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Contacto do Resp.">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Ramo de Actividade">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Sector">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="170.0" text="Nº de Funcionários">
+                                 <styleClass>
+                                    <String fx:value="bold-label" />
+                                    <String fx:value="custom-font-size" />
+                                    <String fx:value="custom-color" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="239.0" layoutY="78.0" prefHeight="397.0" prefWidth="232.0" spacing="16.0">
+                           <children>
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                           </children>
+                        </VBox>
+                     </children></Pane>
                </content></Tab>
          </tabs>
       </JFXTabPane>
