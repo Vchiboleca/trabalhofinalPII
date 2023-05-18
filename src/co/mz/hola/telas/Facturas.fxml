@@ -1,15 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1500.0" styleClass="container" stylesheets="@../css/cadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.FacturasController">
    <children>
-      <Label layoutX="668.0" layoutY="408.0" prefHeight="85.0" prefWidth="165.0" text="Facturacao">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Label>
+      <JFXTabPane layoutX="138.0" layoutY="64.0" prefHeight="778.0" prefWidth="1292.0" AnchorPane.topAnchor="66.0">
+         <tabs>
+            <Tab text="Emitidas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="722.0" prefWidth="1292.0" style="-fx-background-color: white;" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Recebidas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane layoutY="-1.0" prefHeight="723.0" prefWidth="1292.0" style="-fx-background-color: white;" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Emitir Nova">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXTabPane layoutY="-3.0" prefHeight="726.0" prefWidth="1292.0">
+                           <tabs>
+                              <Tab text="Form1">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <VBox layoutX="261.0" layoutY="50.0" prefHeight="564.0" prefWidth="771.0" spacing="10.0">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="125.0" prefWidth="771.0" style="-fx-border-color: #C8C8C8; -fx-border-radius: 5;">
+                                                   <children>
+                                                      <Label prefHeight="45.0" prefWidth="172.0" text="Selecionar Cliente" textFill="#464343">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox prefHeight="25.0" prefWidth="356.0" unFocusColor="#c8c8c8" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox prefHeight="451.0" prefWidth="771.0" style="-fx-border-color: #C8C8C8; -fx-border-radius: 5;">
+                                                   <children>
+                                                      <Label prefHeight="45.0" prefWidth="382.0" text="                Detalhes do Produto / Serviço" textFill="#464343">
+                                                         <font>
+                                                            <Font name="System Bold" size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <VBox prefHeight="152.0" prefWidth="769.0" spacing="10.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="769.0" spacing="15.0">
+                                                               <children>
+                                                                  <TextField prefHeight="69.0" prefWidth="593.0" promptText="Nome do Produto / Serviço" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER" prefHeight="57.0" prefWidth="769.0" spacing="15.0">
+                                                               <children>
+                                                                  <TextField prefHeight="69.0" prefWidth="593.0" promptText="Descrição" />
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="769.0" spacing="15.0">
+                                                               <children>
+                                                                  <TextField prefHeight="46.0" prefWidth="288.0" promptText="Preço Unitário" />
+                                                                  <TextField prefHeight="46.0" prefWidth="290.0" promptText="Quantidades" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Form2">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1463.0" style="-fx-background-color: white;" />
+                                </content>
+                              </Tab>
+                           </tabs>
+                        </JFXTabPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>

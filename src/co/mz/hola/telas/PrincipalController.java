@@ -31,8 +31,6 @@ public class PrincipalController implements Initializable {
     @FXML
     private ImageView menu;
     @FXML
-    private ImageView btnCadastro2;
-    @FXML
     private AnchorPane pane1;
     @FXML
     private AnchorPane pane2;
@@ -40,14 +38,26 @@ public class PrincipalController implements Initializable {
     private StackPane contentor;
     @FXML
     private ImageView btnCadastro1;
-    @FXML
-    private JFXButton btnDashboard;
-    @FXML
     private ImageView imgMPRelatorio;
     @FXML
     private JFXButton btnMPCadastro;
     @FXML
     private JFXButton btnMPRelatorio;
+    @FXML
+    private JFXButton btnDashboard;
+    @FXML
+    private ImageView btnImgDashboard;
+    @FXML
+    private ImageView btnImgClientes;
+    @FXML
+    private ImageView btnImgFacturas;
+    @FXML
+    private ImageView btnImgCadastro;
+    @FXML
+    private ImageView btnImgFornecedores;
+    @FXML
+    private ImageView btnImgRelatorio;
+
 
         
 
@@ -59,7 +69,7 @@ public class PrincipalController implements Initializable {
             System.exit(0);
         });
         
-        btnCadastro2.setOnMouseClicked(event -> {
+        btnImgCadastro.setOnMouseClicked(event -> {
             try {
             Parent painel = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
             contentor.getChildren().removeAll();
@@ -68,6 +78,57 @@ public class PrincipalController implements Initializable {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
         });
+        
+        btnImgFacturas.setOnMouseClicked(event -> {
+            try {
+            Parent painel = FXMLLoader.load(getClass().getResource("Facturas.fxml"));
+            contentor.getChildren().removeAll();
+            contentor.getChildren().setAll(painel);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        
+        btnImgDashboard.setOnMouseClicked(event -> {
+            try {
+            Parent painel = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            contentor.getChildren().removeAll();
+            contentor.getChildren().setAll(painel);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }); 
+        
+        btnImgClientes.setOnMouseClicked(event -> {
+            try {
+            Parent painel = FXMLLoader.load(getClass().getResource("Clientes.fxml"));
+            contentor.getChildren().removeAll();
+            contentor.getChildren().setAll(painel);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        
+        btnImgFornecedores.setOnMouseClicked(event -> {
+            try {
+            Parent painel = FXMLLoader.load(getClass().getResource("Fornecedores.fxml"));
+            contentor.getChildren().removeAll();
+            contentor.getChildren().setAll(painel);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        
+        btnImgRelatorio.setOnMouseClicked(event -> {
+            try {
+            Parent painel = FXMLLoader.load(getClass().getResource("Relatorio.fxml"));
+            contentor.getChildren().removeAll();
+            contentor.getChildren().setAll(painel);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        
         
         pane1.setVisible(false);
         
@@ -122,11 +183,11 @@ public class PrincipalController implements Initializable {
     }    
 
     public ImageView getBtnCadastro2() {
-        return btnCadastro2;
+        return btnImgCadastro;
     }
 
-    public void setBtnCadastro2(ImageView btnCadastro2) {
-        this.btnCadastro2 = btnCadastro2;
+    public void setBtnCadastro2(ImageView btnImgCadastro) {
+        this.btnImgCadastro = btnImgCadastro;
     }
 
     public ImageView getImgMPRelatorio() {

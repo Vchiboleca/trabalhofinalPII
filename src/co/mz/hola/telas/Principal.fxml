@@ -54,7 +54,7 @@
                         <Image url="@../imagens/cadastro-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView disable="true" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/relatorio-roxo.png" />
                      </image>
@@ -68,32 +68,32 @@
          <children>
             <VBox alignment="TOP_CENTER" layoutY="183.0" prefHeight="340.0" prefWidth="65.0" spacing="25.0" AnchorPane.topAnchor="183.0">
                <children>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnImgDashboard" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/dashboard-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnImgFacturas" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/facturas-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnImgClientes" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/clientes-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnImgFornecedores" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/fornecedores-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="btnCadastro2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnImgCadastro" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/cadastro-roxo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgMPRelatorio" disable="true" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnImgRelatorio" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagens/relatorio-roxo.png" />
                      </image>
