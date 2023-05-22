@@ -16,6 +16,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import co.mz.hola.controllers.Empresa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -59,8 +67,6 @@ public class CadastroController implements Initializable {
     @FXML
     private JFXTextField tfProcuraEmpresa;
     @FXML
-    private TableView<Empresa> tabelaEmpresas;
-    @FXML
     private TextField nomeEmpresa;
     @FXML
     private TextField nuitEmpresa;
@@ -80,6 +86,32 @@ public class CadastroController implements Initializable {
     private TextField sector;
     @FXML
     private TextField numeroFuncionarios;
+    @FXML
+    private TableColumn<Empresa, Integer> idEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> nomeEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> nuitEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> enderecoEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> contactoEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> emailEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> responsavelEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> contactoRespEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> actividadeEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, String> sectorEmpresaCadastro;
+    @FXML
+    private TableColumn<Empresa, Integer> numFuncionariosEmpresaCadastro;
+    @FXML
+    private TableView<Empresa> tabelaEmpresasCadastro;
+
+    ObservableList<Empresa> empresaCadastroObservableList = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -94,6 +126,78 @@ public class CadastroController implements Initializable {
         cbEmpresa.getItems().add("Hola");
 
         conexao = ModuloConexao.conector();
+
+        String sql = "select id, nomeEmpresa, nuit, enderecoEmpresa, contactoEmpresa, emailEmpresa, nomeResponsavelEmpresa, contactoDoResponsavel, ramoActividade, sector, numeroFuncionarios from tbempresas";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Integer queryId = rs.getInt("id");
+                String queryNome = rs.getString("nomeEmpresa");
+                String queryNuit = rs.getString("nuit");
+                String queryEndereco = rs.getString("enderecoEmpresa");
+                String queryContacto = rs.getString("contactoEmpresa");
+                String queryEmail = rs.getString("emailEmpresa");
+                String queryNomeResponsavel = rs.getString("nomeResponsavelEmpresa");
+                String queryContactoResponsavel = rs.getString("contactoDoResponsavel");
+                String queryRamo = rs.getString("ramoActividade");
+                String querySector = rs.getString("sector");
+                Integer queryNrFuncionarios = rs.getInt("numeroFuncionarios");
+
+                empresaCadastroObservableList.add(new Empresa(queryId, queryNome, queryNuit, queryEndereco, queryContacto, queryEmail, queryNomeResponsavel, queryContactoResponsavel, queryRamo, querySector, queryNrFuncionarios));
+
+                idEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("id"));
+                nomeEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("nomeDaEmpresa"));
+                nuitEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("nuitDaEmpresa"));
+                enderecoEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("enderecoDaEmpresa"));
+                contactoEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("contactoDaEmpresa"));
+                emailEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("emailDaEmpresa"));
+                responsavelEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("nomeDoResponsavelDaEmpresa"));
+                contactoRespEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("contactoDoResponsavelDaEmpresa"));
+                actividadeEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("ramoDaEmpresa"));
+                sectorEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("sectoDaEmpresar"));
+                numFuncionariosEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("numFuncionariosDaEmpresa"));
+
+                tabelaEmpresasCadastro.setItems(empresaCadastroObservableList);
+
+                FilteredList<Empresa> dadosFiltrados = new FilteredList<>(empresaCadastroObservableList, b -> true);
+
+                tfProcuraEmpresa.textProperty().addListener((observable, oldValue, newValue) -> {
+
+                    dadosFiltrados.setPredicate(empresa -> {
+
+                        if (newValue.isEmpty() || newValue.trim().isEmpty() || newValue == null) {
+                            return true;
+                        }
+
+                        String palavraProcurada = newValue.toLowerCase();
+
+                        if (empresa.getNomeDaEmpresa().toLowerCase().indexOf(palavraProcurada) > -1) {
+                            return true;
+                        } else if (empresa.getNuitDaEmpresa().toLowerCase().indexOf(palavraProcurada) > -1) {
+                            return true;
+                        } else if (empresa.getContactoDaEmpresa().toLowerCase().indexOf(palavraProcurada) > -1) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+
+                    });
+                });
+
+                SortedList<Empresa> dadosResultado = new SortedList<>(dadosFiltrados);
+
+                dadosResultado.comparatorProperty().bind(tabelaEmpresasCadastro.comparatorProperty());
+
+                tabelaEmpresasCadastro.setItems(dadosResultado);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FacturasController.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();
+        }
+
     }
 
     //Metodo para adicionar usuarios
@@ -256,6 +360,7 @@ public class CadastroController implements Initializable {
     }
 
     //Metodo para adicionar Empresas
+    @FXML
     public void adicionarEmpresas() {
         String sql = "insert into tbempresas(nomeEmpresa, nuit, enderecoEmpresa, contactoEmpresa, emailEmpresa, nomeResponsavelEmpresa, contactoDoResponsavel, ramoActividade, sector, numeroFuncionarios) values(?,?,?,?,?,?,?,?,?,?)";
 
@@ -301,10 +406,26 @@ public class CadastroController implements Initializable {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
-    //Metodo para pesquisar clientes pelo nome com filtros
-    public void pesquisarEmpresas() {
-
+    
+    @FXML
+    public void setarCampos(MouseEvent event) {
+        
+        Integer index = tabelaEmpresasCadastro.getSelectionModel().getSelectedIndex();
+        
+        if (index <= -1) {
+            return;
+        }
+        
+        nomeEmpresa.setText(nomeEmpresaCadastro.getCellData(index).toString());
+        nuitEmpresa.setText(nuitEmpresaCadastro.getCellData(index).toString());
+        enderecoEmpresa.setText(enderecoEmpresaCadastro.getCellData(index).toString());
+        contactoEmpresa.setText(contactoEmpresaCadastro.getCellData(index).toString());
+        emailEmpresa.setText(emailEmpresaCadastro.getCellData(index).toString());
+        nomeResponsavelEmpresa.setText(responsavelEmpresaCadastro.getCellData(index).toString());
+        contactoResponsavelEmpresa.setText(contactoRespEmpresaCadastro.getCellData(index).toString());
+        ramoActividade.setText(actividadeEmpresaCadastro.getCellData(index).toString());
+        sector.setText(sectorEmpresaCadastro.getCellData(index).toString());
+        numeroFuncionarios.setText(numFuncionariosEmpresaCadastro.getCellData(index).toString());
         
     }
 

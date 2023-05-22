@@ -117,7 +117,7 @@
                                  <children>
                                     <HBox prefHeight="42.0" prefWidth="413.0">
                                        <children>
-                                          <JFXTextField fx:id="tfProcuraEmpresa" focusColor="#6c5dd4" onKeyReleased="#pesquisarEmpresas" prefHeight="26.0" prefWidth="328.0" unFocusColor="#c8c8c8" />
+                                          <JFXTextField fx:id="tfProcuraEmpresa" focusColor="#6c5dd4" prefHeight="26.0" prefWidth="328.0" unFocusColor="#c8c8c8" />
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../imagens/procura.png" />
@@ -127,19 +127,19 @@
                                     </HBox>
                                  </children>
                               </HBox>
-                              <TableView fx:id="tabelaEmpresas" prefHeight="285.0" prefWidth="1197.0" stylesheets="@../css/cadastro.css">
+                              <TableView fx:id="tabelaEmpresasCadastro" onMouseClicked="#setarCampos" prefHeight="285.0" prefWidth="1197.0" stylesheets="@../css/cadastro.css">
                                 <columns>
-                                  <TableColumn fx:id="idTabela" prefWidth="113.0" text="ID" />
-                                  <TableColumn fx:id="nomeTabela" prefWidth="256.0" text="Nome" />
-                                    <TableColumn fx:id="nuitTabela" prefWidth="78.0" text="NUIT" />
-                                    <TableColumn fx:id="enderecoTabela" prefWidth="116.0" text="Endereço" />
-                                    <TableColumn fx:id="contactoTabela" prefWidth="82.0" text="Contacto" />
-                                    <TableColumn fx:id="emailTabela" prefWidth="97.0" text="Email" />
-                                    <TableColumn fx:id="responsavelTabela" prefWidth="88.0" text="Responsável" />
-                                    <TableColumn fx:id="contactoRespTabela" prefWidth="99.0" text="Contacto Resp." />
-                                    <TableColumn fx:id="actividadeTabela" prefWidth="78.0" text="Actividade" />
-                                    <TableColumn fx:id="sectorTabela" prefWidth="65.0" text="Sector" />
-                                    <TableColumn fx:id="numFuncionariosTabela" prefWidth="124.0" text="Nº de Funcionários" />
+                                  <TableColumn fx:id="idEmpresaCadastro" prefWidth="113.0" text="ID" />
+                                  <TableColumn fx:id="nomeEmpresaCadastro" prefWidth="256.0" text="Nome" />
+                                    <TableColumn fx:id="nuitEmpresaCadastro" prefWidth="78.0" text="NUIT" />
+                                    <TableColumn fx:id="enderecoEmpresaCadastro" prefWidth="116.0" text="Endereço" />
+                                    <TableColumn fx:id="contactoEmpresaCadastro" prefWidth="82.0" text="Contacto" />
+                                    <TableColumn fx:id="emailEmpresaCadastro" prefWidth="97.0" text="Email" />
+                                    <TableColumn fx:id="responsavelEmpresaCadastro" prefWidth="88.0" text="Responsável" />
+                                    <TableColumn fx:id="contactoRespEmpresaCadastro" prefWidth="99.0" text="Contacto Resp." />
+                                    <TableColumn fx:id="actividadeEmpresaCadastro" prefWidth="78.0" text="Actividade" />
+                                    <TableColumn fx:id="sectorEmpresaCadastro" prefWidth="65.0" text="Sector" />
+                                    <TableColumn fx:id="numFuncionariosEmpresaCadastro" prefWidth="124.0" text="Nº de Funcionários" />
                                 </columns>
                               </TableView>
                               <HBox prefHeight="277.0" prefWidth="1197.0" spacing="20.0">

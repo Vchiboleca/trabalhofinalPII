@@ -74,7 +74,7 @@
                                                           <TableColumn fx:id="idEmpresaFactura" prefWidth="75.0" text="ID" />
                                                           <TableColumn fx:id="nomeEmpresaFactura" prefWidth="300.0" text="NOME" />
                                                             <TableColumn fx:id="nuitEmpresaFactura" prefWidth="220.0" text="NUIT" />
-                                                            <TableColumn fx:id="cotactoEmpresaFactura" prefWidth="172.0" text="Contacto" />
+                                                            <TableColumn fx:id="cotactoEmpresaFactura" prefWidth="172.0" text="CONTACTO" />
                                                         </columns>
                                                       </TableView>
                                                    </children>
