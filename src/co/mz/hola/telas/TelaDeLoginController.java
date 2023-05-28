@@ -19,6 +19,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.Label;
 import javax.swing.JOptionPane;
+import co.mz.hola.controllers.VariaveisDoSistema;
 
 /**
  * FXML Controller class
@@ -26,6 +27,8 @@ import javax.swing.JOptionPane;
  * @author Virgilio Chiboleca
  */
 public class TelaDeLoginController implements Initializable {
+
+    VariaveisDoSistema variaveisDoSistema = new VariaveisDoSistema();
 
     Connection conexao = null;
     PreparedStatement pst = null;
@@ -76,16 +79,19 @@ public class TelaDeLoginController implements Initializable {
                 String perfil = rs.getString(8);
                 //System.out.println(perfil);
                 if (perfil.equals("Gestor")) {
-                    
-                    
+
                     Stage stage = new Stage();
-                    
+
                     Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
 
+                    String teste = obterNomeUsuarioLogado();
+                    System.out.println(teste);
+                    variaveisDoSistema.setEmpresaDoUsuarioCadastrado(obterNomeEmpresaDoUsuario());
+                    variaveisDoSistema.setEnderecoDoUsuarioCadastrado(obterEnderecoUsuario());
+                    variaveisDoSistema.setContactoDoUsuarioCadastrado(obterContactoDaEmpresaDoUsuario());
+                    
                     stage.initStyle(StageStyle.UNDECORATED);
-                    
-                    
-                    
+
                     final double[] x = {0};
                     final double[] y = {0};
 
@@ -102,22 +108,88 @@ public class TelaDeLoginController implements Initializable {
                     stage.setScene(new Scene(root));
                     stage.setTitle("Hola v1.0");
 
-                   
-
-
                     stage.show();
 
                     ((Node) event1.getSource()).getScene().getWindow().hide();
-                     
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalido");
             }
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, e);
         }
 
+    }
+
+    public String obterNomeUsuarioLogado() {
+        return tfNomeUsuario.getText();
+    }
+
+    private String obterNomeEmpresaDoUsuario() {
+        String nomeEmpresa = "";
+
+        // Consulta SQL para obter o nome da empresa do usuário
+        String sql = "SELECT tbempresas.nomeEmpresa FROM tbempresas "
+                + "INNER JOIN tbusuarios ON tbempresas.id = tbusuarios.empresa_id "
+                + "WHERE tbusuarios.usuario = ?";
+
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setString(1, obterNomeUsuarioLogado());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                nomeEmpresa = rs.getString("nomeEmpresa");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nomeEmpresa;
+    }
+
+    private String obterEnderecoUsuario() {
+        String enderecoEmpresa = "";
+
+        // Consulta SQL para obter o nome da empresa do usuário
+        String sql = "SELECT tbempresas.enderecoEmpresa FROM tbempresas "
+                + "INNER JOIN tbusuarios ON tbempresas.id = tbusuarios.empresa_id "
+                + "WHERE tbusuarios.usuario = ?";
+
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setString(1, obterNomeUsuarioLogado());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                enderecoEmpresa = rs.getString("enderecoEmpresa");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return enderecoEmpresa;
+    }
+
+    private String obterContactoDaEmpresaDoUsuario() {
+        String contactoEmpresa = "";
+
+        // Consulta SQL para obter o nome da empresa do usuário
+        String sql = "SELECT tbempresas.contactoEmpresa FROM tbempresas "
+                + "INNER JOIN tbusuarios ON tbempresas.id = tbusuarios.empresa_id "
+                + "WHERE tbusuarios.usuario = ?";
+
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setString(1, obterNomeUsuarioLogado());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                contactoEmpresa = rs.getString("contactoEmpresa");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return contactoEmpresa;
     }
 
 }

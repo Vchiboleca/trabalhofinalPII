@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,8 +47,6 @@ public class CadastroController implements Initializable {
     private JFXTextField tfSenha;
     @FXML
     private JFXComboBox<String> cbPerfil;
-    @FXML
-    private JFXComboBox<String> cbEmpresa;
     @FXML
     private JFXButton btnAdicionar;
     @FXML
@@ -112,6 +111,18 @@ public class CadastroController implements Initializable {
     private TableView<Empresa> tabelaEmpresasCadastro;
 
     ObservableList<Empresa> empresaCadastroObservableList = FXCollections.observableArrayList();
+    ObservableList<Empresa> escolherEmpresaObservableList = FXCollections.observableArrayList();
+
+    @FXML
+    private TextField tfIdEmpresa;
+    @FXML
+    private TableView<Empresa> tabelaEscolherEmpresa;
+    @FXML
+    private TableColumn<Empresa, String> colunaUnicaEmpresa;
+    @FXML
+    private JFXTextField txtProcurarEmpresaCadastro;
+    @FXML
+    private JFXTextField tfEmpresa;
 
     /**
      * Initializes the controller class.
@@ -122,9 +133,8 @@ public class CadastroController implements Initializable {
         cbPerfil.getItems().add("Gestor");
         cbPerfil.getItems().add("Operador");
 
-        cbEmpresa.getItems().add("Empresa1");
-        cbEmpresa.getItems().add("Hola");
-
+        //cbEmpresa.getItems().add("Empresa1");
+        //cbEmpresa.getItems().add("Hola");
         conexao = ModuloConexao.conector();
 
         String sql = "select id, nomeEmpresa, nuit, enderecoEmpresa, contactoEmpresa, emailEmpresa, nomeResponsavelEmpresa, contactoDoResponsavel, ramoActividade, sector, numeroFuncionarios from tbempresas";
@@ -148,6 +158,8 @@ public class CadastroController implements Initializable {
 
                 empresaCadastroObservableList.add(new Empresa(queryId, queryNome, queryNuit, queryEndereco, queryContacto, queryEmail, queryNomeResponsavel, queryContactoResponsavel, queryRamo, querySector, queryNrFuncionarios));
 
+                escolherEmpresaObservableList.add(new Empresa(queryNome));
+
                 idEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("id"));
                 nomeEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("nomeDaEmpresa"));
                 nuitEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("nuitDaEmpresa"));
@@ -160,7 +172,12 @@ public class CadastroController implements Initializable {
                 sectorEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("sectoDaEmpresar"));
                 numFuncionariosEmpresaCadastro.setCellValueFactory(new PropertyValueFactory<>("numFuncionariosDaEmpresa"));
 
+                //Tabela no cadastro de usuario
+                colunaUnicaEmpresa.setCellValueFactory(new PropertyValueFactory<>("nomeDaEmpresa"));
+
                 tabelaEmpresasCadastro.setItems(empresaCadastroObservableList);
+
+                tabelaEscolherEmpresa.setItems(escolherEmpresaObservableList);
 
                 FilteredList<Empresa> dadosFiltrados = new FilteredList<>(empresaCadastroObservableList, b -> true);
 
@@ -192,6 +209,35 @@ public class CadastroController implements Initializable {
                 dadosResultado.comparatorProperty().bind(tabelaEmpresasCadastro.comparatorProperty());
 
                 tabelaEmpresasCadastro.setItems(dadosResultado);
+
+                //Para tabela Empresa no formulario de Cadastro de Usuarios
+                FilteredList<Empresa> dadosFiltradosCadastro = new FilteredList<>(escolherEmpresaObservableList, b -> true);
+
+                txtProcurarEmpresaCadastro.textProperty().addListener((observable, oldValue, newValue) -> {
+
+                    dadosFiltradosCadastro.setPredicate(empresa -> {
+
+                        if (newValue.isEmpty() || newValue.trim().isEmpty() || newValue == null) {
+                            return true;
+                        }
+
+                        String palavraProcurada = newValue.toLowerCase();
+
+                        if (empresa.getNomeDaEmpresa().toLowerCase().indexOf(palavraProcurada) > -1) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+
+                    });
+                });
+
+                SortedList<Empresa> dadosResultadoCadastro = new SortedList<>(dadosFiltradosCadastro);
+
+                dadosResultadoCadastro.comparatorProperty().bind(tabelaEmpresasCadastro.comparatorProperty());
+
+                tabelaEscolherEmpresa.setItems(dadosResultadoCadastro);
+
             }
         } catch (SQLException e) {
             Logger.getLogger(FacturasController.class.getName()).log(Level.SEVERE, null, e);
@@ -218,7 +264,7 @@ public class CadastroController implements Initializable {
                 tfContacto.setText(rs.getString(6));
                 tfEmail.setText(rs.getString(7));
                 cbPerfil.setValue(rs.getString(8));
-                cbEmpresa.setValue(rs.getString(9));
+                //cbEmpresa.setValue(rs.getString(9));
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado");
                 //Para limpar campos apos a consulta
@@ -229,18 +275,40 @@ public class CadastroController implements Initializable {
                 tfSenha.setText(null);
                 tfContacto.setText(null);
                 tfEmail.setText(null);
-                cbEmpresa.setValue(null);
+                //cbEmpresa.setValue(null);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
     }
+    //Metodo para obter Id da Empresa pelo nome
+    // Método para obter o ID da empresa com base no nome
 
+    private int obterIdEmpresa(String nomeEmpresa) {
+        String sql = "SELECT id FROM tbempresas WHERE nomeEmpresa = ?";
+        int idEmpresa = 0;
+
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setString(1, nomeEmpresa);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idEmpresa = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return idEmpresa;
+    }
+    
+    
     //Metodo para adicionar usuarios
     @FXML
     public void adicionar() {
-        String sql = "insert into tbusuarios(nome, apelido, usuario, senha, contacto, email, perfil, empresa) values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into tbusuarios(nome, apelido, usuario, senha, contacto, email, perfil, empresa_id) values(?,?,?,?,?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -252,10 +320,13 @@ public class CadastroController implements Initializable {
             pst.setString(5, tfContacto.getText());
             pst.setString(6, tfEmail.getText());
             pst.setString(7, cbPerfil.getValue());
-            pst.setString(8, cbEmpresa.getValue());
+
+            String nome = tfEmpresa.getText();
+            int idDaEmpresaSelecionada = obterIdEmpresa(nome);
+            pst.setInt(8, idDaEmpresaSelecionada);
 
             //Validacao dos campos obrigatorios
-            if ((cadNomeUsuario.getText().isEmpty()) || (tfApelido.getText().isEmpty()) || (tfUtilizador.getText().isEmpty()) || (tfSenha.getText().isEmpty())) {
+            if ((cadNomeUsuario.getText().isEmpty()) || (tfApelido.getText().isEmpty()) || (tfUtilizador.getText().isEmpty()) || (tfSenha.getText().isEmpty()) || (tfEmpresa.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
 
@@ -272,7 +343,7 @@ public class CadastroController implements Initializable {
                     tfSenha.setText(null);
                     tfContacto.setText(null);
                     tfEmail.setText(null);
-                    cbEmpresa.setValue(null);
+                    tfEmpresa.setText(null);
                 }
             }
         } catch (Exception e) {
@@ -283,7 +354,7 @@ public class CadastroController implements Initializable {
     //Criando o metodo para alterar dados do usuario
     @FXML
     public void alterar() {
-        String sql = "update tbusuarios set nome=?, apelido=?, usuario=?, senha=?, contacto=?, email=?, perfil=?, empresa=? where iuser=?";
+        String sql = "update tbusuarios set nome=?, apelido=?, usuario=?, senha=?, contacto=?, email=?, perfil=? where iuser=?";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -294,8 +365,8 @@ public class CadastroController implements Initializable {
             pst.setString(5, tfContacto.getText());
             pst.setString(6, tfEmail.getText());
             pst.setString(7, cbPerfil.getValue());
-            pst.setString(8, cbEmpresa.getValue());
-            pst.setString(9, idUser.getText());
+            //pst.setString(8, cbEmpresa.getValue());
+            pst.setString(8, idUser.getText());
 
             if ((cadNomeUsuario.getText().isEmpty()) || (tfApelido.getText().isEmpty()) || (tfUtilizador.getText().isEmpty()) || (tfSenha.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
@@ -314,7 +385,6 @@ public class CadastroController implements Initializable {
                     tfSenha.setText(null);
                     tfContacto.setText(null);
                     tfEmail.setText(null);
-                    cbEmpresa.setValue(null);
                 }
             }
 
@@ -349,7 +419,6 @@ public class CadastroController implements Initializable {
                     tfSenha.setText(null);
                     tfContacto.setText(null);
                     tfEmail.setText(null);
-                    cbEmpresa.setValue(null);
 
                 }
             } catch (Exception e) {
@@ -406,16 +475,17 @@ public class CadastroController implements Initializable {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     @FXML
     public void setarCampos(MouseEvent event) {
-        
+
         Integer index = tabelaEmpresasCadastro.getSelectionModel().getSelectedIndex();
-        
+
         if (index <= -1) {
             return;
         }
-        
+
+        tfIdEmpresa.setText(idEmpresaCadastro.getCellData(index).toString());
         nomeEmpresa.setText(nomeEmpresaCadastro.getCellData(index).toString());
         nuitEmpresa.setText(nuitEmpresaCadastro.getCellData(index).toString());
         enderecoEmpresa.setText(enderecoEmpresaCadastro.getCellData(index).toString());
@@ -426,7 +496,66 @@ public class CadastroController implements Initializable {
         ramoActividade.setText(actividadeEmpresaCadastro.getCellData(index).toString());
         sector.setText(sectorEmpresaCadastro.getCellData(index).toString());
         numeroFuncionarios.setText(numFuncionariosEmpresaCadastro.getCellData(index).toString());
-        
+
     }
+
+    @FXML
+    public void setarCampoEmpresa(MouseEvent event) {
+
+        Integer index = tabelaEscolherEmpresa.getSelectionModel().getSelectedIndex();
+        if (index <= -1) {
+
+            return;
+        }
+
+        tfEmpresa.setText(colunaUnicaEmpresa.getCellData(index).toString());
+    }
+
+    @FXML
+    public void alterarDadosEmpresa() {
+        String sql = "update tbempresas set nomeEmpresa=?, nuit=?, enderecoEmpresa=?, contactoEmpresa=?, emailEmpresa=?, nomeResponsavelEmpresa=?, contactoDoResponsavel=?, ramoActividade=?, sector=?, numeroFuncionarios=? where id=?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, nomeEmpresa.getText());
+            pst.setString(2, nuitEmpresa.getText());
+            pst.setString(3, enderecoEmpresa.getText());
+            pst.setString(4, contactoEmpresa.getText());
+            pst.setString(5, emailEmpresa.getText());
+            pst.setString(6, nomeResponsavelEmpresa.getText());
+            pst.setString(7, contactoResponsavelEmpresa.getText());
+            pst.setString(8, ramoActividade.getText());
+            pst.setString(9, sector.getText());
+            pst.setString(10, numeroFuncionarios.getText());
+            pst.setString(11, tfIdEmpresa.getText());
+
+            if ((nomeEmpresa.getText().isEmpty()) || (nuitEmpresa.getText().isEmpty()) || (enderecoEmpresa.getText().isEmpty()) || (contactoEmpresa.getText().isEmpty()) || (emailEmpresa.getText().isEmpty()) || (nomeResponsavelEmpresa.getText().isEmpty()) || (ramoActividade.getText().isEmpty()) || (sector.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+
+                //Actualizacao da tabela tbusuarios com os dados do usuario
+                //Confirmacao de insercao dos dados na tabela
+                int adicionado = pst.executeUpdate();
+
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados da empresa alterados com sucesso");
+                    nomeEmpresa.setText(null);
+                    nuitEmpresa.setText(null);
+                    enderecoEmpresa.setText(null);
+                    contactoEmpresa.setText(null);
+                    emailEmpresa.setText(null);
+                    nomeResponsavelEmpresa.setText(null);
+                    contactoResponsavelEmpresa.setText(null);
+                    ramoActividade.setText(null);
+                    sector.setText(null);
+                    numeroFuncionarios.setText(null);
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
 
 }

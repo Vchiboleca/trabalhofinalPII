@@ -29,7 +29,7 @@
                      <children>
                         <HBox layoutX="268.0" layoutY="258.0" spacing="150.0">
                            <children>
-                              <VBox spacing="50.0">
+                              <VBox spacing="25.0">
                                  <children>
                                     <JFXTextField fx:id="cadNomeUsuario" focusColor="#6c5dd4" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="* Primeiro Nome">
                                        <font>
@@ -46,10 +46,10 @@
                                           <Font size="16.0" />
                                        </font>
                                     </JFXTextField>
-                                    <JFXComboBox fx:id="cbEmpresa" focusColor="#6c5dd4" labelFloat="true" prefHeight="25.0" prefWidth="302.0" promptText="* Empresa" />
+                                    <JFXTextField fx:id="txtProcurarEmpresaCadastro" prefHeight="27.0" prefWidth="300.0" promptText="Procurar Empresa" />
                                  </children>
                               </VBox>
-                              <VBox spacing="50.0">
+                              <VBox spacing="25.0">
                                  <children>
                                     <JFXTextField fx:id="tfApelido" focusColor="#6c5dd4" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="* Apelido">
                                        <font>
@@ -67,6 +67,11 @@
                                           <Font size="16.0" />
                                        </font>
                                     </JFXTextField>
+                                    <JFXTextField fx:id="tfEmpresa" editable="false" focusColor="#6c5dd4" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="* Empresa">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </JFXTextField>
                                  </children>
                               </VBox>
                            </children>
@@ -76,7 +81,7 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <HBox layoutX="568.0" layoutY="601.0" prefHeight="47.0" prefWidth="457.0" spacing="10.0">
+                        <HBox layoutX="657.0" layoutY="610.0" prefHeight="47.0" prefWidth="371.0" spacing="10.0">
                            <children>
                               <JFXButton fx:id="btnAdicionar" buttonType="RAISED" onMouseClicked="#adicionar" prefHeight="42.0" prefWidth="160.0" ripplerFill="#867bd3" style="-fx-background-color: #01B552;" text="Adicionar" textFill="WHITE">
                                  <font>
@@ -104,6 +109,11 @@
                         <Label layoutX="268.0" layoutY="188.0" text="Código para Consulta" />
                         <TextField fx:id="idUser" layoutX="426.0" layoutY="184.0" prefHeight="26.0" prefWidth="142.0" />
                         <Label layoutX="892.0" layoutY="91.0" text="* Campos Obrigatórios" />
+                        <TableView fx:id="tabelaEscolherEmpresa" layoutX="268.0" layoutY="488.0" onMouseClicked="#setarCampoEmpresa" prefHeight="169.0" prefWidth="301.0">
+                          <columns>
+                            <TableColumn fx:id="colunaUnicaEmpresa" prefWidth="299.0" text="Selecionar Empresa" />
+                          </columns>
+                        </TableView>
                      </children></Pane>
                </content>
             </Tab>
@@ -125,6 +135,12 @@
                                           </ImageView>
                                        </children>
                                     </HBox>
+                                    <Pane prefHeight="43.0" prefWidth="794.0">
+                                       <children>
+                                          <Label layoutX="26.0" layoutY="13.0" text="*Campos Obrigatorios" />
+                                          <TextField fx:id="tfIdEmpresa" disable="true" editable="false" layoutX="183.0" layoutY="10.0" prefHeight="26.0" prefWidth="92.0" visible="false" />
+                                       </children>
+                                    </Pane>
                                  </children>
                               </HBox>
                               <TableView fx:id="tabelaEmpresasCadastro" onMouseClicked="#setarCampos" prefHeight="285.0" prefWidth="1197.0" stylesheets="@../css/cadastro.css">
@@ -148,11 +164,11 @@
                                        <children>
                                           <VBox prefHeight="255.0" prefWidth="139.0" spacing="9.0">
                                              <children>
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Nome" />
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="NUIT" />
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Endereço Completo" />
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Contacto Telefónico" />
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Email" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Nome" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* NUIT" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Endereço Completo" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Contacto Telefónico" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Email" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="267.0" prefWidth="301.0" spacing="23.0">
@@ -176,10 +192,10 @@
                                        <children>
                                           <VBox prefHeight="351.0" prefWidth="166.0" spacing="9.0">
                                              <children>
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Responsável" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Responsável" />
                                                 <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Contacto do Responsável" />
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Ramo de Actividade" />
-                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Sector" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Ramo de Actividade" />
+                                                <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="* Sector" />
                                                 <Label alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="235.0" styleClass="bold-label" text="Nº de Funcionários" />
                                              </children>
                                           </VBox>
@@ -207,7 +223,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </JFXButton>
-                                          <JFXButton prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: #01BEDC;" styleClass="buttom-fill" text="Alterar">
+                                          <JFXButton onMouseClicked="#alterarDadosEmpresa" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: #01BEDC;" styleClass="buttom-fill" text="Alterar">
                                              <VBox.margin>
                                                 <Insets top="20.0" />
                                              </VBox.margin>

@@ -30,12 +30,18 @@ public class Empresa {
         this.sectoDaEmpresar = sectoDaEmpresar;
         this.numFuncionariosDaEmpresa = numFuncionariosDaEmpresa;
     }
-    public Empresa(int id, String nomeDaEmpresa, String nuitDaEmpresa, String contactoDaEmpresa){
+    public Empresa(int id, String nomeDaEmpresa, String nuitDaEmpresa, String contactoDaEmpresa, String enderecoDaEmpresa){
         this.id = id;
         this.nomeDaEmpresa = nomeDaEmpresa;
         this.nuitDaEmpresa = nuitDaEmpresa;
         this.contactoDaEmpresa = contactoDaEmpresa;
+        this.enderecoDaEmpresa = enderecoDaEmpresa;
     }
+
+    public Empresa(String nomeDaEmpresa) {
+        this.nomeDaEmpresa = nomeDaEmpresa;
+    }
+    
 
     public int getId() {
         return id;
