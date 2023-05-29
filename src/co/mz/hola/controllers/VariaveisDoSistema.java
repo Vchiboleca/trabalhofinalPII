@@ -6,9 +6,29 @@ package co.mz.hola.controllers;
  */
 public class VariaveisDoSistema {
     
+    public static String nomeDoUsuarioCadastrado;
+
+    
     public static String empresaDoUsuarioCadastrado;
     public static String enderecoDoUsuarioCadastrado;
     public static String contactoDoUsuarioCadastrado;
+    public static int idDaEmpresaDoUsuarioCadastrado;
+
+    public static int getIdDaEmpresaDoUsuarioCadastrado() {
+        return idDaEmpresaDoUsuarioCadastrado;
+    }
+
+    public static void setIdDaEmpresaDoUsuarioCadastrado(int idDaEmpresaDoUsuarioCadastrado) {
+        VariaveisDoSistema.idDaEmpresaDoUsuarioCadastrado = idDaEmpresaDoUsuarioCadastrado;
+    }
+    
+    public static String getNomeDoUsuarioCadastrado() {
+        return nomeDoUsuarioCadastrado;
+    }
+
+    public static void setNomeDoUsuarioCadastrado(String nomeDoUsuarioCadastrado) {
+        VariaveisDoSistema.nomeDoUsuarioCadastrado = nomeDoUsuarioCadastrado;
+    }
 
     public static String getContactoDoUsuarioCadastrado() {
         return contactoDoUsuarioCadastrado;

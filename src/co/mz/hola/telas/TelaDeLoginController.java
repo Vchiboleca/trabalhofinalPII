@@ -89,6 +89,8 @@ public class TelaDeLoginController implements Initializable {
                     variaveisDoSistema.setEmpresaDoUsuarioCadastrado(obterNomeEmpresaDoUsuario());
                     variaveisDoSistema.setEnderecoDoUsuarioCadastrado(obterEnderecoUsuario());
                     variaveisDoSistema.setContactoDoUsuarioCadastrado(obterContactoDaEmpresaDoUsuario());
+                    variaveisDoSistema.setNomeDoUsuarioCadastrado(obterNomeUsuarioLogado());
+                    variaveisDoSistema.setIdDaEmpresaDoUsuarioCadastrado(obterIdEmpresaUsuario(obterNomeEmpresaDoUsuario()));
                     
                     stage.initStyle(StageStyle.UNDECORATED);
 
@@ -190,6 +192,25 @@ public class TelaDeLoginController implements Initializable {
         }
 
         return contactoEmpresa;
+    }
+    
+    public int obterIdEmpresaUsuario(String nomeEmpresa) {
+        String sql = "SELECT id FROM tbempresas WHERE nomeEmpresa = ?";
+        int idEmpresa = 0;
+
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setString(1, nomeEmpresa);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idEmpresa = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return idEmpresa;
     }
 
 }

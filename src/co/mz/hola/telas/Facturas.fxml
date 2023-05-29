@@ -49,7 +49,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1292.0">
                      <children>
-                        <JFXTabPane fx:id="tabPaneNovaFactForms" layoutY="-60.0" prefHeight="787.0" prefWidth="1292.0">
+                        <JFXTabPane fx:id="tabPaneNovaFactForms" layoutY="-13.0" prefHeight="740.0" prefWidth="1292.0">
                            <tabs>
                               <Tab fx:id="tab1" text="Form1">
                                 <content>
@@ -126,7 +126,7 @@
                                                             </HBox>
                                                             <HBox alignment="CENTER" prefHeight="63.0" prefWidth="769.0" spacing="15.0">
                                                                <children>
-                                                                  <TextField fx:id="tfCodigoDoProduto" prefHeight="46.0" prefWidth="290.0" promptText="Numero do Pedido">
+                                                                  <TextField fx:id="tfNumeroDoPedido" prefHeight="46.0" prefWidth="290.0" promptText="Numero do Pedido">
                                                                      <font>
                                                                         <Font size="17.0" />
                                                                      </font>
@@ -136,7 +136,7 @@
                                                             </HBox>
                                                             <HBox alignment="CENTER" prefHeight="63.0" prefWidth="769.0" spacing="15.0">
                                                                <children>
-                                                                  <ComboBox fx:id="cbDescontoComercial" prefHeight="46.0" prefWidth="290.0" promptText="Desconto Comercial 2%" />
+                                                                  <ComboBox fx:id="cbDescontoComercial" prefHeight="46.0" prefWidth="290.0" promptText="Desconto Comercial 0%" />
                                                                   <ComboBox fx:id="cbTermosCondicoes" prefHeight="46.0" prefWidth="290.0" promptText="Termos e Condições 30 dias" />
                                                                </children>
                                                             </HBox>
@@ -182,7 +182,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1463.0" style="-fx-background-color: white;">
                                        <children>
-                                          <ScrollPane prefHeight="663.0" prefWidth="1089.0" style="-fx-background-color: white;">
+                                          <ScrollPane prefHeight="663.0" prefWidth="1089.0" style="-fx-background-color: white;" vvalue="1.0">
                                              <content>
                                                 <AnchorPane prefHeight="900.0" prefWidth="1089.0" style="-fx-background-color: white;">
                                                    <children>
@@ -190,7 +190,7 @@
                                                          <children>
                                                             <Pane prefHeight="192.0" prefWidth="1076.0">
                                                                <children>
-                                                                  <Label layoutX="779.0" layoutY="68.0" prefHeight="70.0" prefWidth="60.0" text="18" textFill="#bfc6c9">
+                                                                  <Label fx:id="lblDiaDoMesActual" layoutX="779.0" layoutY="68.0" prefHeight="70.0" prefWidth="60.0" text="18" textFill="#bfc6c9">
                                                                      <font>
                                                                         <Font name="System Bold" size="50.0" />
                                                                      </font>
@@ -200,18 +200,18 @@
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label layoutX="849.0" layoutY="79.0" prefHeight="27.0" prefWidth="46.0" text="ABR" textFill="#bcb7e1">
+                                                                  <Label fx:id="lblMesActual" layoutX="849.0" layoutY="79.0" prefHeight="27.0" prefWidth="46.0" text="ABR" textFill="#bcb7e1">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label layoutX="847.0" layoutY="100.0" prefHeight="31.0" prefWidth="55.0" text="2023" textFill="#bfc6c9">
+                                                                  <Label fx:id="lblAnoActual" layoutX="847.0" layoutY="100.0" prefHeight="31.0" prefWidth="55.0" text="2023" textFill="#bfc6c9">
                                                                      <font>
                                                                         <Font size="18.0" />
                                                                      </font>
                                                                   </Label>
                                                                   <Separator layoutX="902.0" layoutY="52.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="5.0" />
-                                                                  <Label layoutX="916.0" layoutY="68.0" prefHeight="70.0" prefWidth="60.0" text="19" textFill="#bfc6c9">
+                                                                  <Label fx:id="lblDiaVencimento" layoutX="916.0" layoutY="68.0" prefHeight="70.0" prefWidth="60.0" text="19" textFill="#bfc6c9">
                                                                      <font>
                                                                         <Font name="System Bold" size="50.0" />
                                                                      </font>
@@ -221,12 +221,12 @@
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label layoutX="986.0" layoutY="79.0" prefHeight="27.0" prefWidth="46.0" text="MAI" textFill="#bcb7e1">
+                                                                  <Label fx:id="lblMesVencimento" layoutX="986.0" layoutY="79.0" prefHeight="27.0" prefWidth="46.0" text="MAI" textFill="#bcb7e1">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label layoutX="984.0" layoutY="100.0" prefHeight="31.0" prefWidth="55.0" text="2023" textFill="#bfc6c9">
+                                                                  <Label fx:id="lblAnoVencimento" layoutX="984.0" layoutY="100.0" prefHeight="31.0" prefWidth="55.0" text="2023" textFill="#bfc6c9">
                                                                      <font>
                                                                         <Font size="18.0" />
                                                                      </font>
@@ -357,27 +357,36 @@
                                                             </HBox>
                                                             <Pane prefHeight="420.0" prefWidth="1076.0">
                                                                <children>
-                                                                  <Label alignment="CENTER" layoutX="59.0" layoutY="34.0" prefHeight="213.0" prefWidth="416.0" style="-fx-border-color: #C8C8C8;" text="Termos e condicoes:  30 dias;" textFill="#464545">
+                                                                  <Label fx:id="lblTermos" alignment="CENTER" layoutX="59.0" layoutY="34.0" prefHeight="213.0" prefWidth="377.0" style="-fx-border-color: #C8C8C8;" text="Termos e condicões:  30 dias;" textFill="#464545">
                                                                      <font>
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>
                                                                   </Label>
                                                                   <VBox layoutX="722.0" layoutY="34.0" prefHeight="213.0" prefWidth="304.0" spacing="15.0">
                                                                      <children>
-                                                                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="304.0" style="-fx-background-color: #AEA7A6;" text="Total Líquido: 1.200.00,00" textFill="WHITE">
+                                                                        <Label fx:id="lblTotalLiquido" prefHeight="50.0" prefWidth="304.0" style="-fx-background-color: #AEA7A6;" text="Total Líquido:" textFill="WHITE">
                                                                            <font>
                                                                               <Font name="System Bold" size="18.0" />
                                                                            </font>
+                                                                           <padding>
+                                                                              <Insets left="15.0" />
+                                                                           </padding>
                                                                         </Label>
-                                                                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="304.0" style="-fx-background-color: #AEA7A6;" text="Imposto a Pagar: 1.200.00,00" textFill="WHITE">
+                                                                        <Label fx:id="lblImpostoApagar" prefHeight="50.0" prefWidth="304.0" style="-fx-background-color: #AEA7A6;" text="Imposto a Pagar: " textFill="WHITE">
                                                                            <font>
                                                                               <Font name="System Bold" size="18.0" />
                                                                            </font>
+                                                                           <padding>
+                                                                              <Insets left="15.0" />
+                                                                           </padding>
                                                                         </Label>
-                                                                        <Label alignment="CENTER" prefHeight="91.0" prefWidth="304.0" style="-fx-background-color: #6C5DD4;" text="Total da Factura : 1.200.00,00" textFill="WHITE">
+                                                                        <Label fx:id="lblTotalDaFactura" prefHeight="91.0" prefWidth="304.0" style="-fx-background-color: #6C5DD4;" text="Total da Factura : " textFill="WHITE">
                                                                            <font>
                                                                               <Font name="System Bold" size="18.0" />
                                                                            </font>
+                                                                           <padding>
+                                                                              <Insets left="15.0" />
+                                                                           </padding>
                                                                         </Label>
                                                                      </children>
                                                                   </VBox>
@@ -408,7 +417,7 @@
                                           </ScrollPane>
                                           <VBox layoutX="1106.0" layoutY="204.0" spacing="20.0">
                                              <children>
-                                                <JFXButton buttonType="RAISED" prefHeight="44.0" prefWidth="160.0" style="-fx-background-color: #01B552;" text="Enviar Factura" textFill="WHITE">
+                                                <JFXButton buttonType="RAISED" onMouseClicked="#adicionarFactura" prefHeight="44.0" prefWidth="160.0" style="-fx-background-color: #01B552;" text="Enviar Factura" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>

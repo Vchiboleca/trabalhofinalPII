@@ -34,6 +34,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 /**
  * FXML Controller class
@@ -43,9 +48,13 @@ import javax.swing.JOptionPane;
 public class FacturasController implements Initializable {
 
     Factura factura = new Factura();
+
+    String nomeDoUsuario = VariaveisDoSistema.nomeDoUsuarioCadastrado;
+    int idDaEmpresaDoUsuario = VariaveisDoSistema.idDaEmpresaDoUsuarioCadastrado;
     String empresaDoUsuario = VariaveisDoSistema.empresaDoUsuarioCadastrado;
     String enderecoDoUsuario = VariaveisDoSistema.enderecoDoUsuarioCadastrado;
     String contactoDoUsuario = VariaveisDoSistema.contactoDoUsuarioCadastrado;
+    int idEmpresaDestinataria = 0;
 
     Connection conexao = null;
     PreparedStatement pst = null;
@@ -75,7 +84,6 @@ public class FacturasController implements Initializable {
     private TableColumn<Empresa, String> enderecoEmpresaFactura;
 
     ObservableList<Empresa> empresaObservableList = FXCollections.observableArrayList();
-    ObservableList<ItensFactura> itensObservableList = FXCollections.observableArrayList();
 
     @FXML
     private Label nomeEmitente;
@@ -99,14 +107,13 @@ public class FacturasController implements Initializable {
     private TextField tfPrecoUnnitario;
     @FXML
     private TextField tfQuantidadesDoProduto;
-    @FXML
     private TextField tfCodigoDoProduto;
     @FXML
     private ComboBox<Double> cbTaxaIva;
     @FXML
     private ComboBox<Double> cbDescontoComercial;
     @FXML
-    private ComboBox<Double> cbTermosCondicoes;
+    private ComboBox<Integer> cbTermosCondicoes;
     @FXML
     private JFXButton btnAdicionarItens;
     @FXML
@@ -125,6 +132,26 @@ public class FacturasController implements Initializable {
     private JFXButton btnEmitirNova;
     @FXML
     private Tab tab1;
+    @FXML
+    private TextField tfNumeroDoPedido;
+    @FXML
+    private Label lblTotalLiquido;
+    @FXML
+    private Label lblImpostoApagar;
+    @FXML
+    private Label lblTotalDaFactura;
+    @FXML
+    private Label lblDiaDoMesActual;
+    @FXML
+    private Label lblMesActual;
+    @FXML
+    private Label lblAnoActual;
+    @FXML
+    private Label lblDiaVencimento;
+    @FXML
+    private Label lblMesVencimento;
+    @FXML
+    private Label lblAnoVencimento;
 
     /**
      * Initializes the controller class.
@@ -135,9 +162,17 @@ public class FacturasController implements Initializable {
 
         System.out.println(empresaDoUsuario);
         System.out.println(enderecoDoUsuario);
+        System.out.println(nomeDoUsuario);
+        System.out.println(idDaEmpresaDoUsuario);
 
         cbTaxaIva.getItems().add(0.17);
         cbTaxaIva.getItems().add(0.16);
+        cbTaxaIva.setValue(0.17);
+
+        cbTermosCondicoes.getItems().add(30);
+        cbTermosCondicoes.getItems().add(60);
+        cbTermosCondicoes.getItems().add(90);
+        cbTermosCondicoes.setValue(30);
 
         conexao = ModuloConexao.conector();
         String sql = "select id, nomeEmpresa, nuit, contactoEmpresa, enderecoEmpresa from tbempresas";
@@ -200,15 +235,16 @@ public class FacturasController implements Initializable {
         }
 
         btnProsseguirFN.setOnMouseClicked(event -> {
-            
 
-            carregarItensNaFactura(Factura.getItens(), tableViewItens);
+            //ArrayList<ItensFactura> listaItens = new ArrayList<>(); //depois
+            carregarItensNaFactura(Factura.getItens(), tableViewItens); //antes
+            //carregarItensNaFactura(listaItens, tableViewItens);
             tabPaneNovaFactForms.getSelectionModel().select(tab2);
 
         });
-        
+
         btnEmitirNova.setOnMouseClicked(event -> {
-            
+
             tabPaneNovaFactForms.getSelectionModel().select(tab1);
 
         });
@@ -238,42 +274,13 @@ public class FacturasController implements Initializable {
         enderecoDestinatario.setText(enderecoEmpresaFactura.getCellData(index).toString());
         contactoEmitente.setText(cotactoEmpresaFactura.getCellData(index).toString());
 
+        idEmpresaDestinataria = Integer.parseInt(idEmpresaFactura.getCellData(index).toString());
+
         setNomeEmpresa();
         setNomeEmpresaEnviadoPor();
         setEnderecoEmitente();
         setContactoEmitente();
-    }
-
-    public void adicionarFactura() {
-        String sql = "insert into itens(nomeproduto, descricao, taxaiva, precounitario, quantidade) values(?,?,?,?,?)";
-
-        try {
-            pst = conexao.prepareStatement(sql);
-
-            pst.setString(1, tfNomeProduto.getText());
-            pst.setString(2, tfDescricaoDoProduto.getText());
-            pst.setDouble(3, cbTaxaIva.getValue());
-            pst.setDouble(4, Double.parseDouble(tfPrecoUnnitario.getText()));
-            pst.setInt(5, Integer.parseInt(tfQuantidadesDoProduto.getText()));
-
-            //Validacao dos campos obrigatorios
-            if ((tfNomeProduto.getText().isEmpty()) || (tfDescricaoDoProduto.getText().isEmpty()) || (cbTaxaIva.getValue().isNaN()) || (tfPrecoUnnitario.getText().isEmpty()) || (tfQuantidadesDoProduto.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
-
-                int adicionado = pst.executeUpdate();
-
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
-                    //idUser.setText(null);
-                    //cadNomeUsuario.setText(null);
-                    //tfApelido.setText(null);
-
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        actualizarDatas();
     }
 
     @FXML
@@ -289,12 +296,16 @@ public class FacturasController implements Initializable {
         ItensFactura item = new ItensFactura(nomeDoProduto, descricaoDoProduto, precoUnitarioDoProduto, taxaIvaDoProduto, quantidades, subtotal);
         factura.getItens().add(item);
 
+        setarValoresDaFactura();
     }
 
     public void lerItens() {
         System.out.println(factura.getItens().get(0).getDescricaoDoProduto());
         //System.out.println(obterNomeUsuarioLogado());
-
+        System.out.println(factura.obterValorLiquidoDaFactura());
+        System.out.println(factura.obterValorBrutoDaFactura(cbTaxaIva.getValue()));
+        System.out.println("Hello World");
+        System.out.println("Ide da empresa de destino: " + idEmpresaDestinataria);
     }
 
     public void setNomeEmpresa() {
@@ -313,19 +324,139 @@ public class FacturasController implements Initializable {
         this.contactoEmitente.setText(contactoDoUsuario);
     }
 
-    public void carregarItensNaFactura(ArrayList<ItensFactura> listaItens, TableView<ItensFactura> tableView) {
-        
-        //itensObservableList.add(new ItensFactura(queryId, queryNome, queryNuit, queryEndereco));
+    public void actualizarDatas() {
+        // Obter a data atual
+        LocalDate dataAtual = LocalDate.now();
 
+        // Obter o dia do mês atual
+        int diaAtual = dataAtual.getDayOfMonth();
+        lblDiaDoMesActual.setText(String.valueOf(diaAtual));
+
+        // Obter o mês atual em formato abreviado com três letras iniciais
+        String mesAtualAbreviado = dataAtual.format(DateTimeFormatter.ofPattern("MMM"));
+        lblMesActual.setText(mesAtualAbreviado);
+
+        // Obter o ano atual
+        int anoAtual = dataAtual.getYear();
+        lblAnoActual.setText(String.valueOf(anoAtual));
+
+        // Obter o número de dias selecionados na combobox cbTermosCondicoes
+        int diasParaVencimento = cbTermosCondicoes.getValue();
+        System.out.println(diasParaVencimento);
+        // Criar um período de tempo com a quantidade de dias selecionados
+        Period periodo = Period.ofDays(diasParaVencimento);
+
+        // Calcular a data de vencimento adicionando o período à data atual
+        LocalDate dataVencimento = dataAtual.plus(periodo);
+
+        // Obter o dia do mês de vencimento
+        int diaVencimento = dataVencimento.getDayOfMonth();
+        lblDiaVencimento.setText(String.valueOf(diaVencimento));
+
+        // Obter o mês de vencimento em formato abreviado com três letras iniciais
+        String mesVencimentoAbreviado = dataVencimento.format(DateTimeFormatter.ofPattern("MMM"));
+        lblMesVencimento.setText(mesVencimentoAbreviado);
+
+        // Obter o ano de vencimento
+        int anoVencimento = dataVencimento.getYear();
+        lblAnoVencimento.setText(String.valueOf(anoVencimento));
+    }
+
+    public void setarValoresDaFactura() {
+        double valorLiquido = factura.obterValorLiquidoDaFactura();
+        double imposto = factura.impostoAPagar(cbTaxaIva.getValue());
+        double valorBruto = factura.obterValorBrutoDaFactura(cbTaxaIva.getValue());
+
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setCurrencySymbol("MT");
+        simbolos.setDecimalSeparator(',');
+        simbolos.setGroupingSeparator('.');
+
+        DecimalFormat formatoMonetario = new DecimalFormat("#,##0.00", simbolos);
+        String valorLiquidoFormatado = formatoMonetario.format(valorLiquido);
+        String impostoFormatado = formatoMonetario.format(imposto);
+        String valorBrutoFormatado = formatoMonetario.format(valorBruto);
+
+        lblTotalLiquido.setText("Total Líquido: " + valorLiquidoFormatado + " MT");
+        lblImpostoApagar.setText("Imposto a Pagar " + impostoFormatado + " MT");
+        lblTotalDaFactura.setText("Total da Factura " + valorBrutoFormatado + " MT");
+    }
+
+    public void carregarItensNaFactura(ArrayList<ItensFactura> listaItens, TableView<ItensFactura> tableView) {
+
+        //itensObservableList.add(new ItensFactura(queryId, queryNome, queryNuit, queryEndereco));
         colunaNomeDoProduto.setCellValueFactory(new PropertyValueFactory<>("nomeDoProduto"));
         colunaDescricaoDoProduto.setCellValueFactory(new PropertyValueFactory<>("descricaoDoProduto"));
         colunaPrecoUnitario.setCellValueFactory(new PropertyValueFactory<>("precoUnitarioDoProduto"));
         colunaQuantidades.setCellValueFactory(new PropertyValueFactory<>("quantidades"));
         colunaValorLiquido.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
-                
-        itensObservableList.addAll(listaItens);
 
-        tableView.setItems(itensObservableList);
+        //tableView.getColumns().addAll(colunaNomeDoProduto, colunaDescricaoDoProduto, colunaPrecoUnitario, colunaQuantidades, colunaValorLiquido);
+        ObservableList<ItensFactura> itensObservableList = FXCollections.observableArrayList();
+
+        itensObservableList.addAll(listaItens); //Antes
+
+        tableView.setItems(itensObservableList); //antes
+    }
+
+    @FXML
+    public void adicionarFactura() {
+        String sql = "INSERT INTO tbfacturas (numeropedido, valorliquido, termos, valorbruto, imposto_a_pagar, cliente, fornecedor) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pst.setString(1, tfNumeroDoPedido.getText());
+            pst.setDouble(2, factura.obterValorLiquidoDaFactura());
+            pst.setInt(3, cbTermosCondicoes.getValue());
+            pst.setDouble(4, factura.obterValorBrutoDaFactura(cbTaxaIva.getValue()));
+            pst.setDouble(5, factura.impostoAPagar(cbTaxaIva.getValue()));
+            pst.setInt(6, idEmpresaDestinataria);
+            pst.setInt(7, idDaEmpresaDoUsuario);
+
+            // Executa a inserção da fatura no banco de dados
+            int adicionado = pst.executeUpdate();
+
+            if (adicionado > 0) {
+                // Obtém o número da fatura gerado
+                ResultSet rs = pst.getGeneratedKeys();
+                int idFactura = 0;
+                if (rs.next()) {
+                    idFactura = rs.getInt(1);
+                }
+                rs.close();
+
+                // Insere os itens na tabela "itens"
+                String insertItensSql = "INSERT INTO itens (nomeproduto, descricao, precounitario, quantidade, subtotal, taxaiva, idfactura) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                pst = conexao.prepareStatement(insertItensSql);
+
+                for (ItensFactura item : tableViewItens.getItems()) {
+                    pst.setString(1, item.getNomeDoProduto());
+                    pst.setString(2, item.getDescricaoDoProduto());
+                    pst.setDouble(3, item.getPrecoUnitarioDoProduto());
+                    pst.setInt(4, item.getQuantidades());
+                    pst.setDouble(5, item.getSubtotal());
+                    pst.setDouble(6, item.getTaxaIvaDoProduto());
+                    pst.setInt(7, idFactura);
+                    pst.executeUpdate();
+                }
+
+                JOptionPane.showMessageDialog(null, "Factura enviada com sucesso");
+                // Limpa os campos após a inserção
+                tfNumeroDoPedido.setText("");
+                tfNomeProduto.setText("");
+                tfDescricaoDoProduto.setText("");
+                tfPrecoUnnitario.setText("");
+                tfQuantidadesDoProduto.setText("");
+                cbTaxaIva.setValue(null);
+                cbTermosCondicoes.setValue(null);
+                // Limpa a lista de itens da factura
+                tableViewItens.getItems().clear();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar factura: " + e.getMessage());
+        }
     }
 
 }

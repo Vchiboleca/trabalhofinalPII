@@ -282,7 +282,6 @@ public class CadastroController implements Initializable {
         }
 
     }
-    //Metodo para obter Id da Empresa pelo nome
     // Método para obter o ID da empresa com base no nome
 
     private int obterIdEmpresa(String nomeEmpresa) {
