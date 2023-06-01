@@ -78,7 +78,7 @@ public class TelaDeLoginController implements Initializable {
                 //Obtencao do conteudo do campo perfil
                 String perfil = rs.getString(8);
                 //System.out.println(perfil);
-                if (perfil.equals("Gestor")) {
+                
 
                     Stage stage = new Stage();
 
@@ -113,7 +113,7 @@ public class TelaDeLoginController implements Initializable {
                     stage.show();
 
                     ((Node) event1.getSource()).getScene().getWindow().hide();
-                }
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario e/ou senha invalido");
             }

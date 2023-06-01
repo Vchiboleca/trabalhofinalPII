@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="1114.0" spacing="70.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.mz.hola.telas.ItensFacturasRecebidasController">
+   <children>
+      <ImageView fx:id="logoFoto" fitHeight="36.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/logo2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nodeNome" text="Holard Seguros" />
+      <Label fx:id="nodeNrFactura" text="2" />
+      <Label fx:id="nodeMontante" text="50000 MT" />
+      <Label fx:id="nodeData" text="10/05/2023" />
+      <Label fx:id="nodePrazoEmDias" text="20 dias" />
+      <JFXButton fx:id="nodeStatus" style="-fx-border-color: black;" text="Pendente" />
+   </children>
+   <padding>
+      <Insets left="130.0" />
+   </padding>
+</HBox>

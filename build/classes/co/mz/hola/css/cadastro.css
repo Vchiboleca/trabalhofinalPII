@@ -1,0 +1,111 @@
+/* 
+    Created on : May 9, 2023, 3:20:21 AM
+    Author     : Virgilio Chiboleca
+*/
+
+/*Estilo Ababas de Cadastro */
+
+.tab {
+    
+    -fx-pref-width: 160;
+    -fx-pref-height: 60;
+    
+}
+
+/*Define a cor do fundo padrao*/
+.tab-header-background {
+    /* -fx-background-color: #AC94C9; */
+    -fx-background-color:  #F3F3F3; 
+    /*-fx-background-color:  #01BEDC;  */
+    /* -fx-background-color: linear-gradient(to top right, #fffffe, #7b83eb); */
+}
+
+/*Define a cor da linha de baixo*/
+.jfx-tab-pane .tab-selected-line {
+     /*-fx-border-color: #6C5DD4; */
+     -fx-border-color: #01BEDC;
+}
+/*Define a cor padrao das letras*/
+.jfx-tab-pane .tab-header-area .tab .tab-label {
+    -fx-text-fill: #353741;
+}
+
+/*Define a cor das letras quando o mouse passa por cima*/
+.jfx-tab-pane .tab-header-area .tab .tab-label:hover {
+    -fx-text-fill: #6C5DD4;
+}
+/*Define a cor do fundo da tab que estiver selecionada*/
+.jfx-tab-pane .tab-header-area .tab:selected .tab-container {
+    -fx-background-color: #6C5DD4;
+    /* -fx-background-color: #01BEDC;  */
+}
+
+/*Define a cor das letras quando a tab estiver selecionada*/
+.jfx-tab-pane .tab-header-area .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+.container {
+   -fx-background-color: linear-gradient(to top right, #fffffe, #7b83eb);
+}
+
+.bold-label {
+  -fx-font-weight: bold;
+}
+.custom-font-size {
+  -fx-font-size: 14px;
+}
+
+.custom-color {
+  -fx-text-fill: #444654;
+}
+.jafax {
+  background-color: #51DD8D; /* replace with your desired color */
+}
+
+.buttom-fill {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+
+.text-fieldEmpresa {
+  -fx-border-color: #d3cbcb;
+  -fx-border-width: 1px;
+  -fx-padding: 3px;
+  -fx-font-size: 14px;
+  -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-aligment: CENTER;
+}
+.table-view {
+    -fx-border-color:  #C8C8C8;
+    -fx-padding: 0px;
+    -fx-background-color: transparent;
+   
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+} 
+.table-view .column-header-background {
+    -fx-background-color: #6C5DD4;
+    
+}
+.table-view .column-header, .filter {
+    -fx-background-color: transparent;
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+.table-view .column-header .label {
+    -fx-pref-height: 40px;
+}
+

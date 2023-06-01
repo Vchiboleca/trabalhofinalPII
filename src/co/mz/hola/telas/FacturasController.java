@@ -4,6 +4,7 @@ import co.mz.hola.controllers.Empresa;
 import co.mz.hola.controllers.Factura;
 import co.mz.hola.controllers.ItensFactura;
 import co.mz.hola.controllers.VariaveisDoSistema;
+import co.mz.hola.controllers.Cliente;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import java.net.URL;
@@ -29,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import co.mz.hola.telas.TelaDeLoginController;
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -39,6 +41,10 @@ import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -107,17 +113,12 @@ public class FacturasController implements Initializable {
     private TextField tfPrecoUnnitario;
     @FXML
     private TextField tfQuantidadesDoProduto;
-    private TextField tfCodigoDoProduto;
     @FXML
     private ComboBox<Double> cbTaxaIva;
-    @FXML
-    private ComboBox<Double> cbDescontoComercial;
     @FXML
     private ComboBox<Integer> cbTermosCondicoes;
     @FXML
     private JFXButton btnAdicionarItens;
-    @FXML
-    private Button btnTeste;
     @FXML
     private TableColumn<ItensFactura, String> colunaNomeDoProduto;
     @FXML
@@ -152,6 +153,28 @@ public class FacturasController implements Initializable {
     private Label lblMesVencimento;
     @FXML
     private Label lblAnoVencimento;
+    @FXML
+    private VBox paneItens = null;
+    @FXML
+    private Label lblTermos;
+    @FXML
+    private TableView<Cliente> tabelaClientes;
+    @FXML
+    private TableColumn<?, ?> colunaNomeCliente;
+    @FXML
+    private TableColumn<?, ?> colunaNrFactura;
+    @FXML
+    private TableColumn<?, ?> colunaMontante;
+    @FXML
+    private TableColumn<?, ?> colunaDataEmissao;
+    @FXML
+    private TableColumn<?, ?> colunaVencimento;
+    @FXML
+    private TableColumn<?, ?> colunaStatus;
+    @FXML
+    private ComboBox<?> cbDescontoComercial;
+    @FXML
+    private JFXTextField tfprocuraClientes;
 
     /**
      * Initializes the controller class.
@@ -159,7 +182,8 @@ public class FacturasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        
+        
         System.out.println(empresaDoUsuario);
         System.out.println(enderecoDoUsuario);
         System.out.println(nomeDoUsuario);
@@ -245,20 +269,27 @@ public class FacturasController implements Initializable {
 
         btnEmitirNova.setOnMouseClicked(event -> {
 
+            Factura.getItens().clear(); // Limpa a lista de itens da fatura
+            tableViewItens.getItems().clear(); // Limpa a tabela de itens da fatura
+            lblTotalLiquido.setText(""); // Limpa o valor total líquido
+            lblImpostoApagar.setText(""); // Limpa o valor do imposto a pagar
+            lblTotalDaFactura.setText(""); // Limpa o valor total da fatura
+
             tabPaneNovaFactForms.getSelectionModel().select(tab1);
 
         });
 
-        btnTeste.setOnMouseClicked(event -> {
+        /*btnTeste.setOnMouseClicked(event -> {
 
             lerItens();
-        });
+        }); */
 
-        /* btnAdicionarItens.setOnMouseClicked(event -> {
+ /* btnAdicionarItens.setOnMouseClicked(event -> {
         
             adicionarItens();
         
         }); */
+        preencherTabelaClientes();
     }
 
     @FXML
@@ -286,28 +317,37 @@ public class FacturasController implements Initializable {
     @FXML
     public void adicionarItens() {
 
-        String nomeDoProduto = tfNomeProduto.getText();
-        String descricaoDoProduto = tfDescricaoDoProduto.getText();
-        double precoUnitarioDoProduto = Double.parseDouble(tfPrecoUnnitario.getText());
-        double taxaIvaDoProduto = cbTaxaIva.getValue();
-        int quantidades = Integer.parseInt(tfQuantidadesDoProduto.getText());
-        double subtotal = quantidades * precoUnitarioDoProduto;
+        try {
+            String nomeDoProduto = tfNomeProduto.getText();
+            String descricaoDoProduto = tfDescricaoDoProduto.getText();
+            double precoUnitarioDoProduto = Double.parseDouble(tfPrecoUnnitario.getText());
+            double taxaIvaDoProduto = cbTaxaIva.getValue();
+            int quantidades = Integer.parseInt(tfQuantidadesDoProduto.getText());
+            double subtotal = quantidades * precoUnitarioDoProduto;
 
-        ItensFactura item = new ItensFactura(nomeDoProduto, descricaoDoProduto, precoUnitarioDoProduto, taxaIvaDoProduto, quantidades, subtotal);
-        factura.getItens().add(item);
+            ItensFactura item = new ItensFactura(nomeDoProduto, descricaoDoProduto, precoUnitarioDoProduto, taxaIvaDoProduto, quantidades, subtotal);
+            factura.getItens().add(item);
 
-        setarValoresDaFactura();
+            setarValoresDaFactura();
+            JOptionPane.showMessageDialog(null, "Item adicionado com sucesso");
+            tfNomeProduto.setText("");
+            tfDescricaoDoProduto.setText("");
+            tfPrecoUnnitario.setText("");
+            tfQuantidadesDoProduto.setText("");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Item nao foi adicionado, contacte o administrador do sistema");
+        }
     }
 
-    public void lerItens() {
+    /*public void lerItens() {
         System.out.println(factura.getItens().get(0).getDescricaoDoProduto());
         //System.out.println(obterNomeUsuarioLogado());
         System.out.println(factura.obterValorLiquidoDaFactura());
         System.out.println(factura.obterValorBrutoDaFactura(cbTaxaIva.getValue()));
         System.out.println("Hello World");
         System.out.println("Ide da empresa de destino: " + idEmpresaDestinataria);
-    }
-
+    } */
     public void setNomeEmpresa() {
         this.nomeEmitente.setText(empresaDoUsuario);
     }
@@ -426,6 +466,8 @@ public class FacturasController implements Initializable {
                 }
                 rs.close();
 
+                numeroFactura.setText(Integer.toString(idFactura));
+
                 // Insere os itens na tabela "itens"
                 String insertItensSql = "INSERT INTO itens (nomeproduto, descricao, precounitario, quantidade, subtotal, taxaiva, idfactura) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 pst = conexao.prepareStatement(insertItensSql);
@@ -458,5 +500,55 @@ public class FacturasController implements Initializable {
             JOptionPane.showMessageDialog(null, "Erro ao adicionar factura: " + e.getMessage());
         }
     }
+    
+    @FXML
+    public void preencherTabelaClientes() {
+        String sql = "SELECT tbfacturas.idfactura, tbempresas.nomeEmpresa, tbfacturas.valorbruto, tbfacturas.datafactura, tbfacturas.termos "
+                + "FROM tbfacturas "
+                + "JOIN tbempresas ON tbfacturas.cliente = tbempresas.id "
+                + "WHERE tbempresas.id = ?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setInt(1, idDaEmpresaDoUsuario);
+            rs = pst.executeQuery();
+
+            ObservableList<Cliente> clientes = FXCollections.observableArrayList();
+
+            while (rs.next()) {
+                int idFactura = rs.getInt("idfactura");
+                String nomeEmpresa = rs.getString("nomeEmpresa");
+                double valorBruto = rs.getDouble("valorbruto");
+                Timestamp dataFactura = rs.getTimestamp("datafactura");
+                int termos = rs.getInt("termos");
+
+                LocalDate dataEmissao = dataFactura.toLocalDateTime().toLocalDate();
+                LocalDate dataVencimento = dataEmissao.plusDays(termos);
+                LocalDate hoje = LocalDate.now();
+
+                String status;
+                if (dataVencimento.isBefore(hoje)) {
+                    status = "Vencida";
+                } else {
+                    status = "Pendente";
+                }
+
+                clientes.add(new Cliente(nomeEmpresa, idFactura, valorBruto, dataEmissao, dataVencimento, status));
+            }
+
+            colunaNomeCliente.setCellValueFactory(new PropertyValueFactory<>("nomeEmpresa"));
+            colunaNrFactura.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
+            colunaMontante.setCellValueFactory(new PropertyValueFactory<>("valorBruto"));
+            colunaDataEmissao.setCellValueFactory(new PropertyValueFactory<>("dataEmissao"));
+            colunaVencimento.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
+            colunaStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+            tabelaClientes.setItems(clientes);
+        } catch (SQLException e) {
+            Logger.getLogger(CadastroController.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();
+        }
+    }
+
 
 }
